@@ -1,0 +1,32 @@
+{
+  "name": "christianessl/landmap-generation",
+  "type": "library",
+  "description": "Generate pixelated, random world maps in PHP.",
+  "keywords": [
+    "landmap",
+    "generation",
+    "generator",
+    "world",
+    "map"
+  ],
+  "license": ["GPL-2.0-or-later"],
+  "homepage": "https://christianessl.at",
+  "authors": [
+    {
+      "name": "Christian Essl",
+      "role": "Developer"
+    }
+  ],
+  "version": "1.0.0",
+  "require": {
+
+  },
+  "autoload": {
+    "psr-4": {
+      "ChristianEssl\\LandmapGeneration\\": "Classes"
+    }
+  },
+  "replace": {
+
+  }
+}
