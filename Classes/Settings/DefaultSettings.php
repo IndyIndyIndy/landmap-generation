@@ -94,4 +94,12 @@ class DefaultSettings implements GeneratorSettingsInterface
         return $this->height;
     }
 
+    /**
+     * @return bool
+     */
+    public function isInterpolationMode(): bool
+    {
+        return true;
+    }
+
 }

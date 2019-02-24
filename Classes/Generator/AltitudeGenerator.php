@@ -6,6 +6,7 @@ use ChristianEssl\LandmapGeneration\Model\Map;
 use ChristianEssl\LandmapGeneration\Model\Tetrahedon;
 use ChristianEssl\LandmapGeneration\Model\Vertex;
 use ChristianEssl\LandmapGeneration\Settings\GeneratorSettingsInterface;
+use ChristianEssl\LandmapGeneration\Utility\VoidFiller;
 
 /**
  * AltitudeGenerator
@@ -40,6 +41,11 @@ class AltitudeGenerator
     protected $distanceDifferenceWeight;
 
     /**
+     * @var bool
+     */
+    protected $interpolateAltitudes;
+
+    /**
      * LandmapGenerator constructor.
      *
      * @param GeneratorSettingsInterface $settings
@@ -51,6 +57,7 @@ class AltitudeGenerator
         );
         $this->altitudeDifferenceWeight = $settings->getAltitudeDifferenceWeight();
         $this->distanceDifferenceWeight = $settings->getDistanceDifferenceWeight();
+        $this->interpolateAltitudes = $settings->isInterpolationMode();
     }
 
     /**
@@ -78,13 +85,32 @@ class AltitudeGenerator
                     -sin($vertex) * sqrt(1.0 - $Py * $Py)
                 );
 
-                //@todo enable interpolation (every second)
-                //if ($x % 2 == 0 && $y % 2 == 0) {
+                if (!$this->interpolateAltitudes || $x % 2 == 0 && $y % 2 == 0) {
                     $altitudes[$x][$y] = $this->getAltitude();
-                //}
+                }
             }
         }
 
+        if ($this->interpolateAltitudes) {
+            $altitudes = VoidFiller::fill($altitudes, $width, $height);
+        }
+
+        return $altitudes;
+    }
+
+    /**
+     * @param Map $map
+     * @param array $altitudes
+     *
+     * @return array
+     */
+    protected function interpolateBlankValues(Map $map, $altitudes): array
+    {
+        for ($y = 0; $y < $map->height; $y++) {
+            for ($x = 0; $x < $map->width; $x++) {
+                //@todo
+            }
+        }
         return $altitudes;
     }
 

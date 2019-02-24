@@ -52,4 +52,12 @@ interface GeneratorSettingsInterface
      */
     public function getHeight();
 
+    /**
+     * Interpolation mode for performance
+     * (only a quarter of altitudes is calculated altitude and the empty neighbours get interpolated)
+     *
+     * @return int
+     */
+    public function isInterpolationMode();
+
 }
