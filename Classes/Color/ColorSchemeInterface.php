@@ -1,4 +1,5 @@
 <?php
+
 namespace ChristianEssl\LandmapGeneration\Color;
 
 /**

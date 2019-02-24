@@ -1,5 +1,7 @@
 <?php
+
 namespace ChristianEssl\LandmapGeneration\Settings;
+
 use ChristianEssl\LandmapGeneration\Color\DefaultColorScheme;
 
 /**
@@ -13,9 +15,19 @@ class DefaultSettings implements GeneratorSettingsInterface
     protected $initialWaterLevel = -0.002;
 
     /**
+     * @var float
+     */
+    protected $altitudeDifferenceWeight = 0.45;
+
+    /**
+     * @var float
+     */
+    protected $distanceDifferenceWeight = 0.035;
+
+    /**
      * @var DefaultColorScheme
      */
-    protected $defaultColorScheme;
+    protected $colorScheme;
 
     /**
      * @var int
@@ -29,7 +41,7 @@ class DefaultSettings implements GeneratorSettingsInterface
 
     public function __construct()
     {
-        $this->defaultColorScheme = new DefaultColorScheme();
+        $this->colorScheme = new DefaultColorScheme();
     }
 
     /**
@@ -37,23 +49,39 @@ class DefaultSettings implements GeneratorSettingsInterface
      *
      * @return float
      */
-    public function getInitialWaterLevel() : float
+    public function getInitialWaterLevel(): float
     {
         return $this->initialWaterLevel;
     }
 
     /**
+     * @return float
+     */
+    public function getAltitudeDifferenceWeight(): float
+    {
+        return $this->altitudeDifferenceWeight;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDistanceDifferenceWeight(): float
+    {
+        return $this->distanceDifferenceWeight;
+    }
+
+    /**
      * @return DefaultColorScheme
      */
-    public function getColorScheme() : DefaultColorScheme
+    public function getColorScheme(): DefaultColorScheme
     {
-        return $this->defaultColorScheme;
+        return $this->colorScheme;
     }
 
     /**
      * @return int
      */
-    public function getWidth() : int
+    public function getWidth(): int
     {
         return $this->width;
     }
@@ -61,7 +89,7 @@ class DefaultSettings implements GeneratorSettingsInterface
     /**
      * @return int
      */
-    public function getHeight() : int
+    public function getHeight(): int
     {
         return $this->height;
     }

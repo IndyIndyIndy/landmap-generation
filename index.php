@@ -7,8 +7,8 @@ ini_set('display_errors', 1);
 use \ChristianEssl\LandmapGeneration\Generator\LandmapGenerator;
 use \ChristianEssl\LandmapGeneration\Settings\DefaultSettings;
 
-$map = LandmapGenerator::createFromSettings(new DefaultSettings())
-    ->seed('TODO')
-    ->generateMap();
+$seed = 'testseed';
+$landmapGenerator = new LandmapGenerator(new DefaultSettings(), $seed);
+$map = $landmapGenerator->generateMap();
 
-//var_dump($map);
+var_dump($map);

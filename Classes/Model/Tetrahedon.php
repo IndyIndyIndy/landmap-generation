@@ -1,4 +1,5 @@
 <?php
+
 namespace ChristianEssl\LandmapGeneration\Model;
 
 use ChristianEssl\LandmapGeneration\Utility\Random;
@@ -49,33 +50,33 @@ class Tetrahedon
      *
      * @return Tetrahedon
      */
-    public static function createRandomForAltitude(float $altitude) : self
+    public static function createRandomForAltitude(float $altitude): self
     {
         $A = new Vertex(
-            self::RandomCoordinate(false),
-            self::RandomCoordinate(false),
-            self::RandomCoordinate(false),
+            Random::getRandomCoordinate(false),
+            Random::getRandomCoordinate(false),
+            Random::getRandomCoordinate(false),
             $altitude,
             Random::getNextPosNegFloat()
         );
         $B = new Vertex(
-            self::RandomCoordinate(false),
-            self::RandomCoordinate(true),
-            self::RandomCoordinate(true),
+            Random::getRandomCoordinate(false),
+            Random::getRandomCoordinate(true),
+            Random::getRandomCoordinate(true),
             $altitude,
             Random::getNextPosNegFloat()
         );
         $C = new Vertex(
-            self::RandomCoordinate(true),
-            self::RandomCoordinate(false),
-            self::RandomCoordinate(true),
+            Random::getRandomCoordinate(true),
+            Random::getRandomCoordinate(false),
+            Random::getRandomCoordinate(true),
             $altitude,
             Random::getNextPosNegFloat()
         );
         $D = new Vertex(
-            self::RandomCoordinate(true),
-            self::RandomCoordinate(true),
-            self::RandomCoordinate(false),
+            Random::getRandomCoordinate(true),
+            Random::getRandomCoordinate(true),
+            Random::getRandomCoordinate(false),
             $altitude,
             Random::getNextPosNegFloat()
         );
@@ -87,7 +88,7 @@ class Tetrahedon
      *
      * @return Tetrahedon
      */
-    public static function copy(Tetrahedon $tetrahedon) : self
+    public static function copy(Tetrahedon $tetrahedon): self
     {
         return new self(
             clone $tetrahedon->A,
@@ -95,18 +96,6 @@ class Tetrahedon
             clone $tetrahedon->C,
             clone $tetrahedon->D
         );
-    }
-
-    /**
-     * @todo: outsource?
-     * @param bool $positive
-     *
-     * @return float
-     */
-    protected static function RandomCoordinate(bool $positive) : float
-    {
-        $mod = ($positive) ? 1.0 : -1.0;
-        return sqrt(3.0) * $mod + mt_rand(16, 27) * 0.1 * $mod;
     }
 
 }
