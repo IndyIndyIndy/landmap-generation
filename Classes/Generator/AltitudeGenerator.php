@@ -10,6 +10,7 @@ use ChristianEssl\LandmapGeneration\Utility\VoidFiller;
 
 /**
  * AltitudeGenerator
+ * This is a PHP implementation of a "diamond-square" algorithm for creating authentic altitude maps
  */
 class AltitudeGenerator
 {
