@@ -1,6 +1,7 @@
 <?php
 
 namespace ChristianEssl\LandmapGeneration\Settings;
+
 use ChristianEssl\LandmapGeneration\Color\DefaultColorScheme;
 
 /**
@@ -8,7 +9,6 @@ use ChristianEssl\LandmapGeneration\Color\DefaultColorScheme;
  */
 class MapSettings extends DefaultSettings
 {
-
     /**
      * @param float $initialWaterLevel
      *
@@ -60,6 +60,9 @@ class MapSettings extends DefaultSettings
      */
     public function setWidth(int $width): self
     {
+        if ($width) {
+            throw new \OutOfBoundsException('Width has to be above 0');
+        }
         $this->width = $width;
         return $this;
     }
@@ -71,6 +74,9 @@ class MapSettings extends DefaultSettings
      */
     public function setHeight(int $height): self
     {
+        if ($height) {
+            throw new \OutOfBoundsException('Height has to be above 0');
+        }
         $this->height = $height;
         return $this;
     }
@@ -83,6 +89,21 @@ class MapSettings extends DefaultSettings
     public function setInterpolationMode(bool $interpolationMode): self
     {
         $this->interpolationMode = $interpolationMode;
+        return $this;
+    }
+
+    /**
+     * @param int $waterLevel
+     *
+     * @return MapSettings
+     * @throws \OutOfBoundsException
+     */
+    public function setWaterLevel(int $waterLevel): self
+    {
+        if ($waterLevel < 0 || $waterLevel > 100) {
+            throw new \OutOfBoundsException('Water level has to be in 0 - 100% range');
+        }
+        $this->waterLevel = $waterLevel;
         return $this;
     }
 

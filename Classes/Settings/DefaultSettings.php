@@ -44,6 +44,11 @@ class DefaultSettings implements GeneratorSettingsInterface
      */
     protected $interpolationMode = true;
 
+    /**
+     * @var int
+     */
+    protected $waterLevel = 70;
+
     public function __construct()
     {
         $this->colorScheme = new DefaultColorScheme();
@@ -105,6 +110,14 @@ class DefaultSettings implements GeneratorSettingsInterface
     public function isInterpolationMode(): bool
     {
         return $this->interpolationMode;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWaterLevel(): int
+    {
+        return $this->waterLevel;
     }
 
 }

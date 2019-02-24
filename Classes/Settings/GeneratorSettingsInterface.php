@@ -60,4 +60,11 @@ interface GeneratorSettingsInterface
      */
     public function isInterpolationMode();
 
+    /**
+     * The water level from 0 - 100$
+     *
+     * @return int
+     */
+    public function getWaterLevel();
+
 }
