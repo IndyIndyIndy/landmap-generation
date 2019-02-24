@@ -7,7 +7,6 @@ namespace ChristianEssl\LandmapGeneration\Utility;
  */
 class Random
 {
-
     /**
      * @param string $seed
      */
