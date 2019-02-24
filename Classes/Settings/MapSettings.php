@@ -60,7 +60,7 @@ class MapSettings extends DefaultSettings
      */
     public function setWidth(int $width): self
     {
-        if ($width) {
+        if ($width < 0) {
             throw new \OutOfBoundsException('Width has to be above 0');
         }
         $this->width = $width;
@@ -74,7 +74,7 @@ class MapSettings extends DefaultSettings
      */
     public function setHeight(int $height): self
     {
-        if ($height) {
+        if ($height < 0) {
             throw new \OutOfBoundsException('Height has to be above 0');
         }
         $this->height = $height;
