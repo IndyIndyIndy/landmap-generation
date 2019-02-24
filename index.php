@@ -11,4 +11,5 @@ $seed = 'testseed';
 $landmapGenerator = new LandmapGenerator(new DefaultSettings(), $seed);
 $map = $landmapGenerator->generateMap();
 
-var_dump($map);
+\ChristianEssl\LandmapGeneration\Utility\ImageUtility::outputMapToImagePng($map);
+//var_dump($map);

@@ -32,12 +32,12 @@ class DefaultSettings implements GeneratorSettingsInterface
     /**
      * @var int
      */
-    protected $width = 50;
+    protected $width = 150;
 
     /**
      * @var int
      */
-    protected $height = 50;
+    protected $height = 150;
 
     public function __construct()
     {

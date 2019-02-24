@@ -78,9 +78,10 @@ class AltitudeGenerator
                     -sin($vertex) * sqrt(1.0 - $Py * $Py)
                 );
 
-                if ($x % 2 == 0 && $y % 2 == 0) {
+                //@todo enable interpolation (every second)
+                //if ($x % 2 == 0 && $y % 2 == 0) {
                     $altitudes[$x][$y] = $this->getAltitude();
-                }
+                //}
             }
         }
 
