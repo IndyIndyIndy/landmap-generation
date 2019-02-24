@@ -16,27 +16,38 @@ class VoidFiller
      */
     public static function fill(array $array, int $width, int $height): array
     {
-        for ($x = 0; $x < $width; $x++) {
-            for ($y = 0; $y < $height; $y++) {
-                if (!self::coordinatesExist($array, $x, $y)) {
-                    $val = self::fillCoordinateFromCorners($array, $width, $height, $x, $y);
-                    if ($val) {
-                        $array[$x][$y] = $val;
-                    }
-                }
+        $iterator = self::iterateOverMissingCoordinates();
+
+        foreach($iterator($array, $width, $height) as $x => $y) {
+            $val = self::fillCoordinateFromCorners($array, $width, $height, $x, $y);
+            if ($val) {
+                $array[$x][$y] = $val;
             }
         }
-        for ($x = 0; $x < $width; $x++) {
-            for ($y = 0; $y < $height; $y++) {
-                if (!self::coordinatesExist($array, $x, $y)) {
-                    $val = self::fillCoordinateFromAdjacent($array, $width, $height, $x, $y);
-                    if ($val) {
-                        $array[$x][$y] = $val;
-                    }
-                }
+
+        foreach($iterator($array, $width, $height) as $x => $y) {
+            $val = self::fillCoordinateFromAdjacent($array, $width, $height, $x, $y);
+            if ($val) {
+                $array[$x][$y] = $val;
             }
         }
         return $array;
+    }
+
+    /**
+     * @return \Closure
+     */
+    protected static function iterateOverMissingCoordinates(): \Closure
+    {
+        return function ($array, $width, $height) {
+            for ($x = 0; $x < $width; $x++) {
+                for ($y = 0; $y < $height; $y++) {
+                    if (!self::coordinatesExist($array, $x, $y)) {
+                        yield $x => $y;
+                    }
+                }
+            }
+        };
     }
 
     /**
