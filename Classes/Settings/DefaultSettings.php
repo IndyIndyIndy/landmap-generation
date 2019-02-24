@@ -39,6 +39,11 @@ class DefaultSettings implements GeneratorSettingsInterface
      */
     protected $height = 150;
 
+    /**
+     * @var bool
+     */
+    protected $interpolationMode = true;
+
     public function __construct()
     {
         $this->colorScheme = new DefaultColorScheme();
@@ -99,7 +104,7 @@ class DefaultSettings implements GeneratorSettingsInterface
      */
     public function isInterpolationMode(): bool
     {
-        return true;
+        return $this->interpolationMode;
     }
 
 }

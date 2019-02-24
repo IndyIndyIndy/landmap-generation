@@ -3,6 +3,7 @@
 namespace ChristianEssl\LandmapGeneration\Utility;
 
 /**
+ * @todo: better name
  * VoidFiller
  */
 class VoidFiller

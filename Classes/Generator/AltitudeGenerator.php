@@ -99,22 +99,6 @@ class AltitudeGenerator
     }
 
     /**
-     * @param Map $map
-     * @param array $altitudes
-     *
-     * @return array
-     */
-    protected function interpolateBlankValues(Map $map, $altitudes): array
-    {
-        for ($y = 0; $y < $map->height; $y++) {
-            for ($x = 0; $x < $map->width; $x++) {
-                //@todo
-            }
-        }
-        return $altitudes;
-    }
-
-    /**
      * @return float
      */
     protected function getAltitude(): float
