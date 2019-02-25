@@ -18,13 +18,7 @@ class ArrayIterator
      */
     public static function getMapIterator(Map $map): \Generator
     {
-        return (function (Map $map) {
-            for ($x = 0; $x < $map->width; $x++) {
-                for ($y = 0; $y < $map->height; $y++) {
-                    yield $x => $y;
-                }
-            }
-        })($map);
+        return self::getArrayIterator($map->width, $map->height);
     }
 
     /**
