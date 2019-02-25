@@ -3,6 +3,7 @@
 namespace ChristianEssl\LandmapGeneration\Generator;
 
 use ChristianEssl\LandmapGeneration\Color\ColorSchemeInterface;
+use ChristianEssl\LandmapGeneration\Color\MapColorizer;
 use ChristianEssl\LandmapGeneration\Utility\ArrayIterator;
 use ChristianEssl\LandmapGeneration\Model\FillType;
 use ChristianEssl\LandmapGeneration\Model\Map;
@@ -28,9 +29,9 @@ class LandmapGenerator
     protected $waterLevelGenerator;
 
     /**
-     * @var ColorSchemeInterface
+     * @var MapColorizer
      */
-    protected $colorScheme;
+    protected $mapColorizer;
 
     /**
      * @var int
@@ -64,7 +65,7 @@ class LandmapGenerator
         $this->waterLevelGenerator = $waterLevelGenerator;
         $this->waterLevelGenerator->applySettings($settings);
 
-        $this->colorScheme = $settings->getColorScheme();
+        $this->mapColorizer = new MapColorizer($settings->getColorScheme());
         $this->width = $settings->getWidth();
         $this->height = $settings->getHeight();
     }
@@ -90,6 +91,8 @@ class LandmapGenerator
             $altitude *= 75000; // converted to meters
             $map->altitudes[$x][$y] = $altitude;
         }
+
+        $map->colors = $this->mapColorizer->createColors($map);
 
         return $map;
     }

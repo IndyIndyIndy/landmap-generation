@@ -6,7 +6,6 @@ namespace ChristianEssl\LandmapGeneration\Model;
  */
 class Map
 {
-
     /**
      * @var int
      */
@@ -28,6 +27,11 @@ class Map
     public $fillTypes = [];
 
     /**
+     * @var array
+     */
+    public $colors = [];
+
+    /**
      * Map constructor.
      *
      * @param int $width
@@ -38,6 +42,5 @@ class Map
         $this->width = $width;
         $this->height = $height;
     }
-
 
 }
