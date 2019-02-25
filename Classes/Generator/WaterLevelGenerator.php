@@ -119,7 +119,7 @@ class WaterLevelGenerator implements WaterLevelGeneratorInterface
         $totalFill = 0;
         $landFill = 0;
 
-        foreach (ArrayIterator::getMapIterator()($map) as $x => $y) {
+        foreach (ArrayIterator::getMapIterator($map) as $x => $y) {
             $altitude = $map->altitudes[$x][$y];
 
             if ($altitude > $waterLevel) {

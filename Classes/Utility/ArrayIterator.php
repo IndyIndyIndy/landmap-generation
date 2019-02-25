@@ -12,31 +12,36 @@ use ChristianEssl\LandmapGeneration\Model\Map;
 class ArrayIterator
 {
     /**
-     * @return \Closure
+     * @param Map $map
+     *
+     * @return \Generator
      */
-    public static function getMapIterator(): \Closure
+    public static function getMapIterator(Map $map): \Generator
     {
-        return function (Map $map) {
+        return (function (Map $map) {
             for ($x = 0; $x < $map->width; $x++) {
                 for ($y = 0; $y < $map->height; $y++) {
                     yield $x => $y;
                 }
             }
-        };
+        })($map);
     }
 
     /**
-     * @return \Closure
+     * @param int $width
+     * @param int $height
+     *
+     * @return \Generator
      */
-    public static function getArrayIterator(): \Closure
+    public static function getArrayIterator(int $width, int $height): \Generator
     {
-        return function (int $width, int $height) {
+        return (function (int $width, int $height) {
             for ($x = 0; $x < $width; $x++) {
                 for ($y = 0; $y < $height; $y++) {
                     yield $x => $y;
                 }
             }
-        };
+        })($width, $height);
     }
 
 }

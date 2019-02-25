@@ -18,7 +18,7 @@ class ArrayInterpolator
      */
     public static function interpolate(array $array, int $width, int $height): array
     {
-        foreach (ArrayIterator::getArrayIterator()($width, $height) as $x => $y) {
+        foreach (ArrayIterator::getArrayIterator($width, $height) as $x => $y) {
             if (!self::coordinatesExist($array, $x, $y)) {
                 $val = self::fillCoordinateFromCorners($array, $width, $height, $x, $y);
                 if ($val) {
@@ -27,7 +27,7 @@ class ArrayInterpolator
             }
         }
 
-        foreach (ArrayIterator::getArrayIterator()($width, $height) as $x => $y) {
+        foreach (ArrayIterator::getArrayIterator($width, $height) as $x => $y) {
             if (!self::coordinatesExist($array, $x, $y)) {
                 $val = self::fillCoordinateFromAdjacent($array, $width, $height, $x, $y);
                 if ($val) {

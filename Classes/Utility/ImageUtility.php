@@ -31,7 +31,7 @@ class ImageUtility
         $height = $map->height;
         $imageResource = imagecreatetruecolor($width, $height);
 
-        foreach (ArrayIterator::getMapIterator()($map) as $x => $y) {
+        foreach (ArrayIterator::getMapIterator($map) as $x => $y) {
             $altitude = $map->altitudes[$x][$y];
             $colorCode = self::getColorForAltitude($imageResource, $altitude);
             imagesetpixel($imageResource, $x, $y, $colorCode);
