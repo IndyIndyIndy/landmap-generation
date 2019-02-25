@@ -82,15 +82,7 @@ class LandmapGenerator
         $map->altitudes = $this->altitudeGenerator->createAltitudeMap($map);
         $waterLevel = $this->waterLevelGenerator->createWaterLevel($map);
         $map->fillTypes = $this->getFillTypes($map, $waterLevel);
-
-        //@todo: outsource this! or do this in altitudegenerator?!
-        // adjust altitude
-        foreach (ArrayIterator::getMapIterator($map) as $x => $y) {
-            $altitude = $map->altitudes[$x][$y];
-            $altitude -= $waterLevel; // waterlevel now becomes 0
-            $altitude *= 75000; // converted to meters
-            $map->altitudes[$x][$y] = $altitude;
-        }
+        $map->altitudes = $this->adjustAltitudeToWaterLevel($map, $waterLevel);
 
         $map->colors = $this->mapColorizer->createColors($map);
 
@@ -116,4 +108,23 @@ class LandmapGenerator
         return $fillTypes;
     }
 
+    /**
+     * @param Map $map
+     * @param float $waterLevel
+     *
+     * @return array
+     */
+    protected function adjustAltitudeToWaterLevel(Map $map, float $waterLevel): array
+    {
+        $altitudes = [];
+
+        foreach (ArrayIterator::getMapIterator($map) as $x => $y) {
+            $altitude = $map->altitudes[$x][$y];
+            $altitude -= $waterLevel; // waterlevel now becomes 0
+            $altitude *= 75000; // converted to meters
+            $altitudes[$x][$y] = $altitude;
+        }
+
+        return $altitudes;
+    }
 }
