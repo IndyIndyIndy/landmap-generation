@@ -3,7 +3,7 @@
 namespace ChristianEssl\LandmapGeneration\Generator;
 
 use ChristianEssl\LandmapGeneration\Color\ColorSchemeInterface;
-use ChristianEssl\LandmapGeneration\MapIterator;
+use ChristianEssl\LandmapGeneration\Utility\ArrayIterator;
 use ChristianEssl\LandmapGeneration\Model\FillType;
 use ChristianEssl\LandmapGeneration\Model\Map;
 use ChristianEssl\LandmapGeneration\Utility\Random;
@@ -83,7 +83,7 @@ class LandmapGenerator
 
         //@todo: outsource this!
         // define fill type (None, Water, Land)
-        foreach (MapIterator::getMapIterator()($map) as $x => $y) {
+        foreach (ArrayIterator::getMapIterator()($map) as $x => $y) {
             $altitude = $map->altitudes[$x][$y];
             $fillType = ($altitude > $waterLevel) ? FillType::LAND : FillType::WATER;
             $map->fillTypes[$x][$y] = $fillType;
@@ -91,7 +91,7 @@ class LandmapGenerator
 
         //@todo: outsource this! or do this in altitudegenerator?!
         // adjust altitude
-        foreach (MapIterator::getMapIterator()($map) as $x => $y) {
+        foreach (ArrayIterator::getMapIterator()($map) as $x => $y) {
             $altitude = $map->altitudes[$x][$y];
             $altitude -= $waterLevel; // waterlevel now becomes 0
             $altitude *= 75000; // converted to meters

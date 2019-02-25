@@ -2,7 +2,7 @@
 
 namespace ChristianEssl\LandmapGeneration\Generator;
 
-use ChristianEssl\LandmapGeneration\MapIterator;
+use ChristianEssl\LandmapGeneration\Utility\ArrayIterator;
 use ChristianEssl\LandmapGeneration\Model\Map;
 use ChristianEssl\LandmapGeneration\Settings\GeneratorSettingsInterface;
 
@@ -119,7 +119,7 @@ class WaterLevelGenerator implements WaterLevelGeneratorInterface
         $totalFill = 0;
         $landFill = 0;
 
-        foreach (MapIterator::getMapIterator()($map) as $x => $y) {
+        foreach (ArrayIterator::getMapIterator()($map) as $x => $y) {
             $altitude = $map->altitudes[$x][$y];
 
             if ($altitude > $waterLevel) {

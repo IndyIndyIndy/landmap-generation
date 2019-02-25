@@ -3,11 +3,11 @@
 namespace ChristianEssl\LandmapGeneration\Utility;
 
 /**
- * @todo: better name
- * @todo: refactor iterator
- * VoidFiller
+ * ArrayInterpolator
+ *
+ * Interpolates empty spaces in the given array by looking at each neighbour and calculating a middle value
  */
-class VoidFiller
+class ArrayInterpolator
 {
     /**
      * @param array $array
@@ -16,40 +16,26 @@ class VoidFiller
      *
      * @return array
      */
-    public static function fill(array $array, int $width, int $height): array
+    public static function interpolate(array $array, int $width, int $height): array
     {
-        $iterator = self::iterateOverMissingCoordinates();
-
-        foreach($iterator($array, $width, $height) as $x => $y) {
-            $val = self::fillCoordinateFromCorners($array, $width, $height, $x, $y);
-            if ($val) {
-                $array[$x][$y] = $val;
+        foreach (ArrayIterator::getArrayIterator()($width, $height) as $x => $y) {
+            if (!self::coordinatesExist($array, $x, $y)) {
+                $val = self::fillCoordinateFromCorners($array, $width, $height, $x, $y);
+                if ($val) {
+                    $array[$x][$y] = $val;
+                }
             }
         }
 
-        foreach($iterator($array, $width, $height) as $x => $y) {
-            $val = self::fillCoordinateFromAdjacent($array, $width, $height, $x, $y);
-            if ($val) {
-                $array[$x][$y] = $val;
+        foreach (ArrayIterator::getArrayIterator()($width, $height) as $x => $y) {
+            if (!self::coordinatesExist($array, $x, $y)) {
+                $val = self::fillCoordinateFromAdjacent($array, $width, $height, $x, $y);
+                if ($val) {
+                    $array[$x][$y] = $val;
+                }
             }
         }
         return $array;
-    }
-
-    /**
-     * @return \Closure
-     */
-    protected static function iterateOverMissingCoordinates(): \Closure
-    {
-        return function ($array, $width, $height) {
-            for ($x = 0; $x < $width; $x++) {
-                for ($y = 0; $y < $height; $y++) {
-                    if (!self::coordinatesExist($array, $x, $y)) {
-                        yield $x => $y;
-                    }
-                }
-            }
-        };
     }
 
     /**

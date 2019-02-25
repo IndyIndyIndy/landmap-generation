@@ -6,7 +6,7 @@ use ChristianEssl\LandmapGeneration\Model\Map;
 use ChristianEssl\LandmapGeneration\Model\Tetrahedon;
 use ChristianEssl\LandmapGeneration\Model\Vertex;
 use ChristianEssl\LandmapGeneration\Settings\GeneratorSettingsInterface;
-use ChristianEssl\LandmapGeneration\Utility\VoidFiller;
+use ChristianEssl\LandmapGeneration\Utility\ArrayInterpolator;
 
 /**
  * AltitudeGenerator
@@ -94,7 +94,7 @@ class AltitudeGenerator implements AltitudeGeneratorInterface
         }
 
         if ($this->interpolateAltitudes) {
-            $altitudes = VoidFiller::fill($altitudes, $width, $height);
+            $altitudes = ArrayInterpolator::interpolate($altitudes, $width, $height);
         }
 
         return $altitudes;
