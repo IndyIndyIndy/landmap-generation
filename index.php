@@ -15,14 +15,18 @@ ini_set('display_errors', 1);
 
 use \ChristianEssl\LandmapGeneration\Generator\LandmapGenerator;
 use \ChristianEssl\LandmapGeneration\Settings\MapSettings;
+use \ChristianEssl\LandmapGeneration\Generator\AltitudeGenerator;
 
 $seed = 'testseed';
 $settings = (new MapSettings())
     ->setWidth(150)
     ->setHeight(150);
 
-$landmapGenerator = new LandmapGenerator($settings, $seed);
+$landmapGenerator = new LandmapGenerator(
+    $settings,
+    $seed,
+    new AltitudeGenerator()
+);
 $map = $landmapGenerator->generateMap();
 
 \ChristianEssl\LandmapGeneration\Utility\ImageUtility::outputMapToImagePng($map);
-//var_dump($map);

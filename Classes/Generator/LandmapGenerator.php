@@ -37,12 +37,17 @@ class LandmapGenerator
      *
      * @param GeneratorSettingsInterface $settings
      * @param string $seed
+     * @param AltitudeGeneratorInterface $altitudeGenerator
      */
-    public function __construct(GeneratorSettingsInterface $settings, string $seed)
-    {
+    public function __construct(
+        GeneratorSettingsInterface $settings,
+        string $seed,
+        AltitudeGeneratorInterface $altitudeGenerator
+    ) {
         Random::seed($seed);
 
-        $this->altitudeGenerator = new AltitudeGenerator($settings);
+        $this->altitudeGenerator = $altitudeGenerator;
+        $this->altitudeGenerator->applySettings($settings);
         $this->colorScheme = $settings->getColorScheme();
         $this->width = $settings->getWidth();
         $this->height = $settings->getHeight();

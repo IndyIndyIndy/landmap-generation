@@ -12,7 +12,7 @@ use ChristianEssl\LandmapGeneration\Utility\VoidFiller;
  * AltitudeGenerator
  * This is a PHP implementation of a "diamond-square" algorithm for creating authentic altitude maps
  */
-class AltitudeGenerator
+class AltitudeGenerator implements AltitudeGeneratorInterface
 {
     const PI = 3.14159265358979;
 
@@ -47,11 +47,9 @@ class AltitudeGenerator
     protected $interpolateAltitudes;
 
     /**
-     * LandmapGenerator constructor.
-     *
      * @param GeneratorSettingsInterface $settings
      */
-    public function __construct(GeneratorSettingsInterface $settings)
+    public function applySettings(GeneratorSettingsInterface $settings)
     {
         $this->baseTetrahedon = Tetrahedon::createRandomForAltitude(
             $settings->getInitialWaterLevel()
