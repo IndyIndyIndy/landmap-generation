@@ -80,14 +80,7 @@ class LandmapGenerator
         );
         $map->altitudes = $this->altitudeGenerator->createAltitudeMap($map);
         $waterLevel = $this->waterLevelGenerator->createWaterLevel($map);
-
-        //@todo: outsource this!
-        // define fill type (None, Water, Land)
-        foreach (ArrayIterator::getMapIterator($map) as $x => $y) {
-            $altitude = $map->altitudes[$x][$y];
-            $fillType = ($altitude > $waterLevel) ? FillType::LAND : FillType::WATER;
-            $map->fillTypes[$x][$y] = $fillType;
-        }
+        $map->fillTypes = $this->getFillTypes($map, $waterLevel);
 
         //@todo: outsource this! or do this in altitudegenerator?!
         // adjust altitude
@@ -99,6 +92,25 @@ class LandmapGenerator
         }
 
         return $map;
+    }
+
+    /**
+     * @param Map $map
+     * @param float $waterLevel
+     *
+     * @return array
+     */
+    protected function getFillTypes(Map $map, float $waterLevel): array
+    {
+        $fillTypes = [];
+
+        foreach (ArrayIterator::getMapIterator($map) as $x => $y) {
+            $altitude = $map->altitudes[$x][$y];
+            $fillType = ($altitude > $waterLevel) ? FillType::LAND : FillType::WATER;
+            $fillTypes[$x][$y] = $fillType;
+        }
+
+        return $fillTypes;
     }
 
 }

@@ -20,7 +20,7 @@ interface WaterLevelGeneratorInterface
     /**
      * @param Map $map
      *
-     * @return array
+     * @return float
      */
     public function createWaterLevel(Map $map);
 
