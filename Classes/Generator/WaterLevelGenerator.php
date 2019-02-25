@@ -16,21 +16,30 @@ use ChristianEssl\LandmapGeneration\Settings\GeneratorSettingsInterface;
 class WaterLevelGenerator implements WaterLevelGeneratorInterface
 {
     /**
+     * The initial water level to start from (before we rise or lower it)
+     *
      * @var float
      */
     protected $initialWaterLevel;
 
     /**
+     * The desired percentage of the map to be covered in water
+     *
      * @var float
      */
     protected $desiredWaterLevelPercent;
 
     /**
+     * The allowed imprecision in determining the water level
+     * In this example the water percentage can be +- 0.5% off from the desired water level
+     *
      * @var float
      */
-    protected $allowedImprecision = 1.0;
+    protected $allowedImprecision = 0.5;
 
     /**
+     * Search pointer for the boolean search to efficiently calculate the rising/lowering of the water
+     *
      * @var float
      */
     protected $searchPointer = 0.1;
@@ -52,7 +61,7 @@ class WaterLevelGenerator implements WaterLevelGeneratorInterface
     public function createWaterLevel(Map $map): float
     {
         $waterLevel = $this->initialWaterLevel;
-        $expectedLandPercent = 100 - $this->desiredWaterLevelPercent;
+        $expectedLandPercent = 100.0 - $this->desiredWaterLevelPercent;
         $landPercent = $this->getCurrentLandPercent($map, $waterLevel);
 
         // raise/lower water level until we get the desired land / water ratio
