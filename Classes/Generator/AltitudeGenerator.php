@@ -10,7 +10,10 @@ use ChristianEssl\LandmapGeneration\Utility\VoidFiller;
 
 /**
  * AltitudeGenerator
- * This is a PHP implementation of a "diamond-square" algorithm for creating authentic altitude maps
+ *
+ * This is a PHP implementation of a "diamond-square" algorithm for creating authentic altitude maps.
+ * As this is very CPU intensive, by default, an interpolation mode is enabled, which calculates only a
+ * quarter of the maps pixels and generates the missing pixels by looking at its neighbours.
  */
 class AltitudeGenerator implements AltitudeGeneratorInterface
 {

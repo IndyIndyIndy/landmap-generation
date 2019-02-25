@@ -93,12 +93,12 @@ class MapSettings extends DefaultSettings
     }
 
     /**
-     * @param int $waterLevel
+     * @param float $waterLevel
      *
      * @return MapSettings
      * @throws \OutOfBoundsException
      */
-    public function setWaterLevel(int $waterLevel): self
+    public function setWaterLevel(float $waterLevel): self
     {
         if ($waterLevel < 0 || $waterLevel > 100) {
             throw new \OutOfBoundsException('Water level has to be in 0 - 100% range');

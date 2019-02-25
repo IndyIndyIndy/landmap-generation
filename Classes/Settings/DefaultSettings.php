@@ -45,9 +45,9 @@ class DefaultSettings implements GeneratorSettingsInterface
     protected $interpolationMode = true;
 
     /**
-     * @var int
+     * @var float
      */
-    protected $waterLevel = 70;
+    protected $waterLevel = 70.0;
 
     public function __construct()
     {
@@ -113,9 +113,9 @@ class DefaultSettings implements GeneratorSettingsInterface
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getWaterLevel(): int
+    public function getWaterLevel(): float
     {
         return $this->waterLevel;
     }

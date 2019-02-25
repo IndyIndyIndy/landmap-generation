@@ -16,16 +16,19 @@ ini_set('display_errors', 1);
 use \ChristianEssl\LandmapGeneration\Generator\LandmapGenerator;
 use \ChristianEssl\LandmapGeneration\Settings\MapSettings;
 use \ChristianEssl\LandmapGeneration\Generator\AltitudeGenerator;
+use \ChristianEssl\LandmapGeneration\Generator\WaterLevelGenerator;
 
 $seed = 'testseed';
 $settings = (new MapSettings())
     ->setWidth(150)
-    ->setHeight(150);
+    ->setHeight(150)
+    ->setWaterLevel(66);
 
 $landmapGenerator = new LandmapGenerator(
     $settings,
     $seed,
-    new AltitudeGenerator()
+    new AltitudeGenerator(),
+    new WaterLevelGenerator()
 );
 $map = $landmapGenerator->generateMap();
 

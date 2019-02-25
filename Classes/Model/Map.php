@@ -23,6 +23,11 @@ class Map
     public $altitudes = [];
 
     /**
+     * @var array
+     */
+    public $fillTypes = [];
+
+    /**
      * Map constructor.
      *
      * @param int $width
