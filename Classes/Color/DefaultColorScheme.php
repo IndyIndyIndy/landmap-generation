@@ -3,6 +3,7 @@
 namespace ChristianEssl\LandmapGeneration\Color;
 
 use ChristianEssl\LandmapGeneration\Enum\FillType;
+use ChristianEssl\LandmapGeneration\Model\Color;
 
 /**
  * DefaultColorScheme
@@ -11,7 +12,7 @@ class DefaultColorScheme implements ColorSchemeInterface
 {
 
     /**
-     * @var array
+     * @var Color[]
      */
     protected $colors = [];
 
@@ -20,19 +21,19 @@ class DefaultColorScheme implements ColorSchemeInterface
      */
     public function __construct()
     {
-        $this->colors[FillType::LAND] = [2, 98, 6];
-        $this->colors[FillType::WATER] = [24, 94, 188];
+        $this->colors[FillType::LAND] = new Color(2, 98, 6);
+        $this->colors[FillType::WATER] = new Color(24, 94, 188);
     }
 
     /**
      * @param int $fillType
      *
-     * @return array
+     * @return Color
      */
-    public function getColorForType(int $fillType)
+    public function getColorForType(int $fillType): Color
     {
         if (!isset($this->colors[$fillType])) {
-            throw new \InvalidArgumentException('The specified fillType '.$fillType.' does not exist as a color');
+            throw new \InvalidArgumentException('The specified fillType ' . $fillType . ' does not exist as a color');
         }
         return $this->colors[$fillType];
     }
@@ -41,16 +42,16 @@ class DefaultColorScheme implements ColorSchemeInterface
      * @param int $fillType
      * @param int $shade
      *
-     * @return array
+     * @return Color
      */
-    public function getShadedColorForType(int $fillType, int $shade)
+    public function getShadedColorForType(int $fillType, int $shade): Color
     {
         $color = $this->getColorForType($fillType);
-        return [
-            (int) min($shade * $color[0] / 150, 255),
-            (int) min($shade * $color[1] / 150, 255),
-            (int) min($shade * $color[2] / 150, 255),
-        ];
+        return new Color(
+            (int)min($shade * $color->r / 150, 255),
+            (int)min($shade * $color->g / 150, 255),
+            (int)min($shade * $color->b / 150, 255)
+        );
     }
 
 }

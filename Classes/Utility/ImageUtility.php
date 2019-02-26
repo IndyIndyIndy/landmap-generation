@@ -2,6 +2,7 @@
 
 namespace ChristianEssl\LandmapGeneration\Utility;
 
+use ChristianEssl\LandmapGeneration\Model\Color;
 use ChristianEssl\LandmapGeneration\Model\Map;
 
 /**
@@ -42,13 +43,13 @@ class ImageUtility
 
     /**
      * @param resource $image
-     * @param array $color
+     * @param Color $color
      *
      * @return int
      */
-    protected static function allocateColor($image, array $color): int
+    protected static function allocateColor($image, Color $color): int
     {
-        return imagecolorallocate($image, $color[0], $color[1], $color[2]);
+        return imagecolorallocate($image, $color->r, $color->g, $color->b);
     }
 
 }
