@@ -39,16 +39,22 @@ Utility\ImageUtility::outputImage($image, Enum\FileType::PNG);
 
 ## 3. Example output
 
-500x300 pixels, seed: 'otters_are_awesome'
+500x300 pixels
+
+seed: 'otters_are_awesome!'
 
 60% water, flat shader
+
 ![Screenshot](/Images/example.png)
 
 30% water, flat shader
+
 ![Screenshot](/Images/example_2.png)
 
 60% water, detailed shader
+
 ![Screenshot](/Images/example_3.png)
 
 60% water, no shader
+
 ![Screenshot](/Images/example_4.png)
