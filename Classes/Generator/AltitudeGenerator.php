@@ -2,9 +2,9 @@
 
 namespace ChristianEssl\LandmapGeneration\Generator;
 
-use ChristianEssl\LandmapGeneration\Model\Map;
-use ChristianEssl\LandmapGeneration\Model\Tetrahedon;
-use ChristianEssl\LandmapGeneration\Model\Vertex;
+use ChristianEssl\LandmapGeneration\Struct\Map;
+use ChristianEssl\LandmapGeneration\Struct\Tetrahedon;
+use ChristianEssl\LandmapGeneration\Struct\Vertex;
 use ChristianEssl\LandmapGeneration\Settings\GeneratorSettingsInterface;
 use ChristianEssl\LandmapGeneration\Utility\ArrayInterpolator;
 

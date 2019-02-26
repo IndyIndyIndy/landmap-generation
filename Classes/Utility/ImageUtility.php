@@ -2,8 +2,8 @@
 
 namespace ChristianEssl\LandmapGeneration\Utility;
 
-use ChristianEssl\LandmapGeneration\Model\Color;
-use ChristianEssl\LandmapGeneration\Model\Map;
+use ChristianEssl\LandmapGeneration\Struct\Color;
+use ChristianEssl\LandmapGeneration\Struct\Map;
 
 /**
  * ImageUtility

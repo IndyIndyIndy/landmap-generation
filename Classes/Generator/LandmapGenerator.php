@@ -5,7 +5,7 @@ namespace ChristianEssl\LandmapGeneration\Generator;
 use ChristianEssl\LandmapGeneration\Color\MapColorizer;
 use ChristianEssl\LandmapGeneration\Utility\ArrayIterator;
 use ChristianEssl\LandmapGeneration\Enum\FillType;
-use ChristianEssl\LandmapGeneration\Model\Map;
+use ChristianEssl\LandmapGeneration\Struct\Map;
 use ChristianEssl\LandmapGeneration\Utility\Random;
 use ChristianEssl\LandmapGeneration\Settings\GeneratorSettingsInterface;
 

@@ -3,7 +3,7 @@
 namespace ChristianEssl\LandmapGeneration\Color;
 
 use ChristianEssl\LandmapGeneration\Color\Shader\ShaderInterface;
-use ChristianEssl\LandmapGeneration\Model\Map;
+use ChristianEssl\LandmapGeneration\Struct\Map;
 
 /**
  * ColorSchemeInterface

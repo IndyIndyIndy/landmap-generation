@@ -5,8 +5,8 @@ namespace ChristianEssl\LandmapGeneration\Color;
 use ChristianEssl\LandmapGeneration\Color\Shader\NullShader;
 use ChristianEssl\LandmapGeneration\Color\Shader\ShaderInterface;
 use ChristianEssl\LandmapGeneration\Enum\FillType;
-use ChristianEssl\LandmapGeneration\Model\Color;
-use ChristianEssl\LandmapGeneration\Model\Map;
+use ChristianEssl\LandmapGeneration\Struct\Color;
+use ChristianEssl\LandmapGeneration\Struct\Map;
 
 /**
  * DefaultColorScheme

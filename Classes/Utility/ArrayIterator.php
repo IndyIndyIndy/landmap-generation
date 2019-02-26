@@ -2,7 +2,7 @@
 
 namespace ChristianEssl\LandmapGeneration\Utility;
 
-use ChristianEssl\LandmapGeneration\Model\Map;
+use ChristianEssl\LandmapGeneration\Struct\Map;
 
 /**
  * ArrayIterator

@@ -2,7 +2,7 @@
 
 namespace ChristianEssl\LandmapGeneration\Color;
 
-use ChristianEssl\LandmapGeneration\Model\Map;
+use ChristianEssl\LandmapGeneration\Struct\Map;
 use ChristianEssl\LandmapGeneration\Utility\ArrayIterator;
 
 /**

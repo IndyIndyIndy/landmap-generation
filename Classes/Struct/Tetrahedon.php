@@ -1,6 +1,6 @@
 <?php
 
-namespace ChristianEssl\LandmapGeneration\Model;
+namespace ChristianEssl\LandmapGeneration\Struct;
 
 use ChristianEssl\LandmapGeneration\Utility\Random;
 

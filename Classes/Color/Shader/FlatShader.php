@@ -3,8 +3,8 @@
 namespace ChristianEssl\LandmapGeneration\Color\Shader;
 
 use ChristianEssl\LandmapGeneration\Enum\FillType;
-use ChristianEssl\LandmapGeneration\Model\Color;
-use ChristianEssl\LandmapGeneration\Model\Map;
+use ChristianEssl\LandmapGeneration\Struct\Color;
+use ChristianEssl\LandmapGeneration\Struct\Map;
 use ChristianEssl\LandmapGeneration\Utility\ArrayIterator;
 use ChristianEssl\LandmapGeneration\Utility\Random;
 
