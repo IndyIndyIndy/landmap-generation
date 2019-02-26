@@ -16,12 +16,12 @@ use ChristianEssl\LandmapGeneration\Color\Shader as Shader;
 use ChristianEssl\LandmapGeneration\Enum as Enum;
 use ChristianEssl\LandmapGeneration\Utility as Utility;
 
-$seed = 'testseed';
+$seed = 'otters_are_awesome!';
 $settings = (new Settings\MapSettings())
     ->setColorScheme(new Color\DefaultColorScheme(new Shader\FlatShader()))
-    ->setWidth(150)
-    ->setHeight(150)
-    ->setWaterLevel(66.5);
+    ->setWidth(500)
+    ->setHeight(300)
+    ->setWaterLevel(60);
 
 $landmapGenerator = new Generator\LandmapGenerator(
     $settings,
