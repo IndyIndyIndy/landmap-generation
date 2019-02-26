@@ -32,9 +32,9 @@ class ImageUtility
         $imageResource = imagecreatetruecolor($width, $height);
 
         foreach (ArrayIterator::getMapIterator($map) as $x => $y) {
-            $altitude = $map->altitudes[$x][$y];
-            $colorCode = self::getColorForAltitude($imageResource, $altitude);
-            imagesetpixel($imageResource, $x, $y, $colorCode);
+            $color = $map->colors[$x][$y];
+            $allocatedColor = self::allocateColor($imageResource, $color);
+            imagesetpixel($imageResource, $x, $y, $allocatedColor);
         }
 
         return $imageResource;
@@ -42,27 +42,13 @@ class ImageUtility
 
     /**
      * @param resource $image
-     * @param float $altitude
+     * @param array $color
      *
      * @return int
      */
-    public static function getColorForAltitude($image, float $altitude): int
+    protected static function allocateColor($image, array $color): int
     {
-        //@todo
-        $r = self::floatColorToInt($altitude);
-        $g = self::floatColorToInt($altitude);
-        $b = self::floatColorToInt($altitude);
-        return imagecolorallocate($image, $r, $g, $b);
-    }
-
-    /**
-     * @param float $color
-     *
-     * @return int
-     */
-    public static function floatColorToInt(float $color): int
-    {
-        return (int)floor($color >= 1.0 ? 255 : $color * 256.0);
+        return imagecolorallocate($image, $color[0], $color[1], $color[2]);
     }
 
 }

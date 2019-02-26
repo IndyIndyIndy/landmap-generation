@@ -6,6 +6,7 @@
  * @todo basic shaders (enable/disable)
  * @todo readme/documentation
  * @todo variables for water level float (in altitude) and water level percentage are currently called the same -> confusing
+ * @todo refactor models
  */
 
 require __DIR__ . '/vendor/autoload.php';
