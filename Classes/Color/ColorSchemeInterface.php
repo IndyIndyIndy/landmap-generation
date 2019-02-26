@@ -2,6 +2,9 @@
 
 namespace ChristianEssl\LandmapGeneration\Color;
 
+use ChristianEssl\LandmapGeneration\Color\Shader\ShaderInterface;
+use ChristianEssl\LandmapGeneration\Model\Map;
+
 /**
  * ColorSchemeInterface
  */
@@ -9,18 +12,17 @@ interface ColorSchemeInterface
 {
 
     /**
-     * @param int $fillType
+     * @param Map $map
+     * @param int $x
+     * @param int $y
      *
      * @return array
      */
-    public function getColorForType(int $fillType);
+    public function getColor(Map $map, int $x, int $y);
 
     /**
-     * @param int $fillType
-     * @param int $shade
-     *
-     * @return array
+     * @return ShaderInterface
      */
-    public function getShadedColorForType(int $fillType, int $shade);
+    public function getShader();
 
 }

@@ -2,56 +2,67 @@
 
 namespace ChristianEssl\LandmapGeneration\Color;
 
+use ChristianEssl\LandmapGeneration\Color\Shader\NullShader;
+use ChristianEssl\LandmapGeneration\Color\Shader\ShaderInterface;
 use ChristianEssl\LandmapGeneration\Enum\FillType;
 use ChristianEssl\LandmapGeneration\Model\Color;
+use ChristianEssl\LandmapGeneration\Model\Map;
 
 /**
  * DefaultColorScheme
  */
 class DefaultColorScheme implements ColorSchemeInterface
 {
-
     /**
      * @var Color[]
      */
     protected $colors = [];
 
     /**
-     * DefaultColorScheme constructor.
+     * @var ShaderInterface
      */
-    public function __construct()
+    protected $shader;
+
+    /**
+     * DefaultColorScheme constructor.
+     *
+     * @param ShaderInterface $shader
+     */
+    public function __construct(ShaderInterface $shader = null)
     {
         $this->colors[FillType::LAND] = new Color(2, 98, 6);
         $this->colors[FillType::WATER] = new Color(24, 94, 188);
+
+        if ($shader === null) {
+            $shader = new NullShader();
+        }
+        $this->shader = $shader;
     }
 
     /**
-     * @param int $fillType
+     * @param Map $map
+     * @param int $x
+     * @param int $y
      *
      * @return Color
      */
-    public function getColorForType(int $fillType): Color
+    public function getColor(Map $map, int $x, int $y): Color
     {
+        $fillType = $map->fillTypes[$x][$y];
+
         if (!isset($this->colors[$fillType])) {
             throw new \InvalidArgumentException('The specified fillType ' . $fillType . ' does not exist as a color');
         }
-        return $this->colors[$fillType];
+        $color = $this->colors[$fillType];
+        return $this->shader->shadeColor($color, $x, $y);
     }
 
     /**
-     * @param int $fillType
-     * @param int $shade
-     *
-     * @return Color
+     * @return ShaderInterface
      */
-    public function getShadedColorForType(int $fillType, int $shade): Color
+    public function getShader(): ShaderInterface
     {
-        $color = $this->getColorForType($fillType);
-        return new Color(
-            (int)min($shade * $color->r / 150, 255),
-            (int)min($shade * $color->g / 150, 255),
-            (int)min($shade * $color->b / 150, 255)
-        );
+        return $this->shader;
     }
 
 }
