@@ -5,8 +5,6 @@ namespace ChristianEssl\LandmapGeneration\Utility;
 /**
  * ArrayInterpolator
  *
- * @todo: this class shouldn't be static
- *
  * Interpolates empty spaces in the given array by looking at each neighbour and calculating a middle value
  */
 class ArrayInterpolator

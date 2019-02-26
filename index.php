@@ -1,13 +1,10 @@
 <?php
 
-/*
- * @todo readme/documentation
- * @todo variables for water level float (in altitude) and water level percentage are currently called the same -> confusing
+/**
+ * Example usage of  the LandmapGenerator
  */
 
 require __DIR__ . '/vendor/autoload.php';
-
-ini_set('display_errors', 1); //@todo remove this
 
 use ChristianEssl\LandmapGeneration\Settings as Settings;
 use ChristianEssl\LandmapGeneration\Generator as Generator;
@@ -18,7 +15,7 @@ use ChristianEssl\LandmapGeneration\Utility as Utility;
 
 $seed = 'otters_are_awesome!';
 $settings = (new Settings\MapSettings())
-    ->setColorScheme(new Color\DefaultColorScheme(new Shader\FlatShader()))
+    ->setColorScheme(new Color\DefaultColorScheme(new Shader\NullShader()))
     ->setWidth(500)
     ->setHeight(300)
     ->setWaterLevel(60);
