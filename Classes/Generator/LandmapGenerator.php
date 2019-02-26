@@ -53,14 +53,20 @@ class LandmapGenerator
     public function __construct(
         GeneratorSettingsInterface $settings,
         string $seed,
-        AltitudeGeneratorInterface $altitudeGenerator,
-        WaterLevelGeneratorInterface $waterLevelGenerator
+        AltitudeGeneratorInterface $altitudeGenerator = null,
+        WaterLevelGeneratorInterface $waterLevelGenerator = null
     ) {
         Random::seed($seed);
 
+        if ($altitudeGenerator === null) {
+            $altitudeGenerator = new AltitudeGenerator();
+        }
         $this->altitudeGenerator = $altitudeGenerator;
         $this->altitudeGenerator->applySettings($settings);
 
+        if ($waterLevelGenerator === null) {
+            $waterLevelGenerator = new WaterLevelGenerator();
+        }
         $this->waterLevelGenerator = $waterLevelGenerator;
         $this->waterLevelGenerator->applySettings($settings);
 

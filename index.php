@@ -23,12 +23,7 @@ $settings = (new Settings\MapSettings())
     ->setHeight(300)
     ->setWaterLevel(60);
 
-$landmapGenerator = new Generator\LandmapGenerator(
-    $settings,
-    $seed,
-    new Generator\AltitudeGenerator(),
-    new Generator\WaterLevelGenerator()
-);
+$landmapGenerator = new Generator\LandmapGenerator($settings, $seed);
 $map = $landmapGenerator->generateMap();
 
 $image = Utility\ImageUtility::createImage($map);
