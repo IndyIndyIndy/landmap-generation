@@ -76,6 +76,14 @@ seed: 'otters_are_awesome!'
 | ------------- |-------------| -----|
 | ShaderInterface $shader | The shader to use for this color scheme. If none is passed, "NullShader" will be used (which does no shading at all). | NullShader |
 
+### Class LandmapGenerator
+| Constructor arguments | Description | Default value |
+| ------------- |-------------| -----|
+| GeneratorSettingsInterface $settings | The settings for the LandmapGenerator: MapSettings or DefaultSettings. | - |
+| string $seed | Seed for the Random number generator. | - |
+| HeightmapGeneratorInterface $heightmapGenerator | The algorithm for generating the heightmap. | DiamondSquareHeightmapGenerator |
+| WaterLevelGeneratorInterface $waterLevelGenerator | The algorithm for placing the water level | WaterLevelGenerator |
+
 ### Implemented Shaders
 | Class name | Description |
 | ------------- |-------------| 
@@ -87,5 +95,4 @@ seed: 'otters_are_awesome!'
 
 - implement a perlin noise algorithm as example (much faster than diamond square)
 - refactor and decouple ImageUtility
-- extend documentation (like LandmapGenerator constructor)
 - possibility to cache the heightmap generation 
