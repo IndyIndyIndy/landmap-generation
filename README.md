@@ -82,3 +82,12 @@ seed: 'otters_are_awesome!'
 | NullShader | Does no shading at all. |
 | FlatShader | Simple shading with flat looking colors. |
 | DetailShader | Highly detailed altitudes in the map. No steps between the colors. |
+
+## TODO
+
+- rename "altitude" to "heightmap"
+- rename AltitudeGenerator (more like DiamondSquareHeightmapGenerator)
+- implement a perlin noise algorithm as example (much faster than diamond square)
+- refactor and decouple ImageUtility
+- extend documentation (like LandmapGenerator constructor)
+- possibility to cache the heightmap generation 
