@@ -48,7 +48,7 @@ class FlatShader implements ShaderInterface
     public function createShades(Map $map): array
     {
         foreach (ArrayIterator::getMapIterator($map) as $x => $y) {
-            $altitude = $map->altitudes[$x][$y];
+            $altitude = $map->heightmap[$x][$y];
 
             if ($map->fillTypes[$x][$y] == FillType::LAND) {
                 $shadeLevel = 1;

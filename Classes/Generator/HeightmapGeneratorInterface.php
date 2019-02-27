@@ -6,9 +6,9 @@ use ChristianEssl\LandmapGeneration\Struct\Map;
 use ChristianEssl\LandmapGeneration\Settings\GeneratorSettingsInterface;
 
 /**
- * Interface for the AltitudeGenerator, in case an alternative algorithm is needed in the future
+ * Interface for the HeightmapGenerator, in case an alternative algorithm is needed in the future
  */
-interface AltitudeGeneratorInterface
+interface HeightmapGeneratorInterface
 {
     /**
      * @param GeneratorSettingsInterface $settings
@@ -22,6 +22,6 @@ interface AltitudeGeneratorInterface
      *
      * @return array
      */
-    public function createAltitudeMap(Map $map);
+    public function createHeightmap(Map $map);
 
 }

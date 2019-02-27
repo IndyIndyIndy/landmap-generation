@@ -9,13 +9,13 @@ use ChristianEssl\LandmapGeneration\Settings\GeneratorSettingsInterface;
 use ChristianEssl\LandmapGeneration\Utility\ArrayInterpolator;
 
 /**
- * AltitudeGenerator
+ * DiamondSquareHeightmapGenerator
  *
  * This is a PHP implementation of a "diamond-square" algorithm for creating authentic altitude maps.
  * As this is very CPU intensive, by default, an interpolation mode is enabled, which calculates only a
  * quarter of the maps pixels and generates the missing pixels by looking at its neighbours.
  */
-class AltitudeGenerator implements AltitudeGeneratorInterface
+class DiamondSquareHeightmapGenerator implements HeightmapGeneratorInterface
 {
     const PI = 3.14159265358979;
 
@@ -67,7 +67,7 @@ class AltitudeGenerator implements AltitudeGeneratorInterface
      *
      * @return array
      */
-    public function createAltitudeMap(Map $map): array
+    public function createHeightmap(Map $map): array
     {
         $width = $map->width;
         $height = $map->height;

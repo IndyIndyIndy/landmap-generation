@@ -18,9 +18,9 @@ use ChristianEssl\LandmapGeneration\Settings\GeneratorSettingsInterface;
 class LandmapGenerator
 {
     /**
-     * @var AltitudeGeneratorInterface
+     * @var HeightmapGeneratorInterface
      */
-    protected $altitudeGenerator;
+    protected $heightmapGenerator;
 
     /**
      * @var WaterLevelGeneratorInterface
@@ -47,22 +47,22 @@ class LandmapGenerator
      *
      * @param GeneratorSettingsInterface $settings
      * @param string $seed
-     * @param AltitudeGeneratorInterface $altitudeGenerator
+     * @param HeightmapGeneratorInterface $heightmapGenerator
      * @param WaterLevelGeneratorInterface $waterLevelGenerator
      */
     public function __construct(
         GeneratorSettingsInterface $settings,
         string $seed,
-        AltitudeGeneratorInterface $altitudeGenerator = null,
+        HeightmapGeneratorInterface $heightmapGenerator = null,
         WaterLevelGeneratorInterface $waterLevelGenerator = null
     ) {
         Random::seed($seed);
 
-        if ($altitudeGenerator === null) {
-            $altitudeGenerator = new AltitudeGenerator();
+        if ($heightmapGenerator === null) {
+            $heightmapGenerator = new DiamondSquareHeightmapGenerator();
         }
-        $this->altitudeGenerator = $altitudeGenerator;
-        $this->altitudeGenerator->applySettings($settings);
+        $this->heightmapGenerator = $heightmapGenerator;
+        $this->heightmapGenerator->applySettings($settings);
 
         if ($waterLevelGenerator === null) {
             $waterLevelGenerator = new WaterLevelGenerator();
@@ -85,10 +85,10 @@ class LandmapGenerator
             $this->height
         );
         
-        $map->altitudes = $this->altitudeGenerator->createAltitudeMap($map);
+        $map->heightmap = $this->heightmapGenerator->createHeightmap($map);
         $waterLevel = $this->waterLevelGenerator->createWaterLevel($map);
         $map->fillTypes = $this->getFillTypes($map, $waterLevel);
-        $map->altitudes = $this->adjustAltitudeToWaterLevel($map, $waterLevel);
+        $map->heightmap = $this->adjustAltitudeToWaterLevel($map, $waterLevel);
         $map->colors = $this->mapColorizer->createColors($map);
 
         return $map;
@@ -105,7 +105,7 @@ class LandmapGenerator
         $fillTypes = [];
 
         foreach (ArrayIterator::getMapIterator($map) as $x => $y) {
-            $altitude = $map->altitudes[$x][$y];
+            $altitude = $map->heightmap[$x][$y];
             $fillType = ($altitude > $waterLevel) ? FillType::LAND : FillType::WATER;
             $fillTypes[$x][$y] = $fillType;
         }
@@ -124,7 +124,7 @@ class LandmapGenerator
         $altitudes = [];
 
         foreach (ArrayIterator::getMapIterator($map) as $x => $y) {
-            $altitude = $map->altitudes[$x][$y];
+            $altitude = $map->heightmap[$x][$y];
             $altitude -= $waterLevel; // waterlevel now becomes 0
             $altitude *= 75000; // converted to meters
             $altitudes[$x][$y] = $altitude;

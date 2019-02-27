@@ -19,7 +19,7 @@ class Map
     /**
      * @var array
      */
-    public $altitudes = [];
+    public $heightmap = [];
 
     /**
      * @var array

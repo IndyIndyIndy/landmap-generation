@@ -2,7 +2,7 @@
 Generate pixelated, random world maps in PHP.
 
 This is a simple landmap generator implemented in PHP. 
-It supports generating an altitude map, setting up a water level, colorizing and shading.
+It supports generating a heightmap, setting up a water level, colorizing and shading.
 The outputted result will be in pixel style.
 
 ![Screenshot](/Images/example.png)
@@ -69,7 +69,7 @@ seed: 'otters_are_awesome!'
 | setHeight()      | map height in pixels      | 150 |
 | setColorScheme() | the color scheme to use | DefaultColorScheme |
 | setWaterLevel() | percentage of the map to be water | 70 |
-| setInterpolationMode() | when set, only every fourth pixel is actually calculated in altitude generation. (as the calculation costs a lot of performance) Neighbouring pixels will be interpolated. Highly recommended. | true |
+| setInterpolationMode() | when set, only every fourth pixel is actually calculated in heightmap generation. (as the calculation costs a lot of performance) Neighbouring pixels will be interpolated. Highly recommended. | true |
 
 ### Class DefaultColorScheme
 | Constructor arguments | Description | Default value |
@@ -85,8 +85,6 @@ seed: 'otters_are_awesome!'
 
 ## TODO
 
-- rename "altitude" to "heightmap"
-- rename AltitudeGenerator (more like DiamondSquareHeightmapGenerator)
 - implement a perlin noise algorithm as example (much faster than diamond square)
 - refactor and decouple ImageUtility
 - extend documentation (like LandmapGenerator constructor)

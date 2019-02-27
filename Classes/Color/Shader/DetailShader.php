@@ -58,7 +58,7 @@ class DetailShader implements ShaderInterface
 
         foreach (ArrayIterator::getMapIterator($map) as $x => $y) {
             if ($map->fillTypes[$x][$y] == FillType::LAND) {
-                $altitude = $map->altitudes[$x][$y];
+                $altitude = $map->heightmap[$x][$y];
                 $this->shades[$x][$y] = (int)((($altitude + abs($lowestLand)) / $highestLand + Random::getNextPosNegFloat() / 10) * 127) + 63;
             }
         }
@@ -75,7 +75,7 @@ class DetailShader implements ShaderInterface
         $highestLand = 0.0;
 
         foreach (ArrayIterator::getMapIterator($map) as $x => $y) {
-            $altitude = $map->altitudes[$x][$y];
+            $altitude = $map->heightmap[$x][$y];
             if ($altitude > 0 && $map->fillTypes[$x][$y] != FillType::WATER) {
                 $lowestLand = min($lowestLand, $altitude);
                 $highestLand = max($highestLand, $altitude);

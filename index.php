@@ -15,7 +15,7 @@ use ChristianEssl\LandmapGeneration\Utility as Utility;
 
 $seed = 'otters_are_awesome!';
 $settings = (new Settings\MapSettings())
-    ->setColorScheme(new Color\DefaultColorScheme(new Shader\NullShader()))
+    ->setColorScheme(new Color\DefaultColorScheme(new Shader\FlatShader()))
     ->setWidth(500)
     ->setHeight(300)
     ->setWaterLevel(60);
