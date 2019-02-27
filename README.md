@@ -58,3 +58,27 @@ seed: 'otters_are_awesome!'
 60% water, no shader
 
 ![Screenshot](/Images/example_4.png)
+
+
+## 4. Configuration options
+
+### Class MapSettings
+| Public methods | Description | Default value |
+| ------------- |-------------| -----|
+| setWidth()      | map width in pixels | 150 |
+| setHeight()      | map height in pixels      | 150 |
+| setColorScheme() | the color scheme to use | DefaultColorScheme |
+| setWaterLevel() | percentage of the map to be water | 70 |
+| setInterpolationMode() | when set, only every fourth pixel is actually calculated in altitude generation. (as the calculation costs a lot of performance) Neighbouring pixels will be interpolated. Highly recommended. | true |
+
+### Class DefaultColorScheme
+| Constructor arguments | Description | Default value |
+| ------------- |-------------| -----|
+| ShaderInterface $shader | The shader to use for this color scheme. If none is passed, "NullShader" will be used (which does no shading at all). | NullShader |
+
+### Implemented Shaders
+| Class name | Description |
+| ------------- |-------------| 
+| NullShader | Does no shading at all. |
+| FlatShader | Simple shading with flat looking colors. |
+| DetailShader | Highly detailed altitudes in the map. No steps between the colors. |
