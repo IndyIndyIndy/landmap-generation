@@ -95,4 +95,5 @@ seed: 'otters_are_awesome!'
 
 - implement a perlin noise algorithm as example (much faster than diamond square)
 - refactor and decouple ImageUtility
-- possibility to cache the heightmap generation 
+- possibility to cache the heightmap generation (maybe as a json tree?)
+- port the diamond square algorithm to GO (in another project) and add the option to connect the php project to the GO library
