@@ -1,6 +1,11 @@
 # landmap-generation
 Generate pixelated, random world maps in PHP.
 
+[![Latest Stable Version](https://poser.pugx.org/christianessl/landmap-generation/v/stable)](https://packagist.org/packages/christianessl/landmap-generation)
+[![Total Downloads](https://poser.pugx.org/christianessl/landmap-generation/downloads)](https://packagist.org/packages/christianessl/landmap-generation)
+[![Latest Unstable Version](https://poser.pugx.org/christianessl/landmap-generation/v/unstable)](https://packagist.org/packages/christianessl/landmap-generation)
+[![License](https://poser.pugx.org/christianessl/landmap-generation/license)](https://packagist.org/packages/christianessl/landmap-generation)
+
 This is a simple landmap generator implemented in PHP. 
 It supports generating a heightmap, setting up a water level, colorizing and shading.
 The outputted result will be in pixel style.
