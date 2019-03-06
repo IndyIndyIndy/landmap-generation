@@ -98,4 +98,20 @@ class Tetrahedon
         );
     }
 
+    /**
+     * Return array of vertices to check against for ordering (to make AB the longest edge)
+     *
+     * @return array
+     */
+    public function getVerticeChecks():array
+    {
+        return [
+            'AC' => [$this->A, $this->C, $this->B, $this->D],
+            'AD' => [$this->A, $this->D, $this->B, $this->C],
+            'BC' => [$this->B, $this->C, $this->A, $this->D],
+            'BD' => [$this->B, $this->D, $this->A, $this->C],
+            'CD' => [$this->C, $this->D, $this->A, $this->B],
+        ];
+    }
+
 }

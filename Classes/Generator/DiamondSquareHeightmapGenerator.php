@@ -121,77 +121,75 @@ class DiamondSquareHeightmapGenerator implements HeightmapGeneratorInterface
      */
     protected function createAltitude(Tetrahedon $tetraRef, int $level, float $abEdge): float
     {
+        $newEdge = null;
         $A = $tetraRef->A;
         $B = $tetraRef->B;
         $C = $tetraRef->C;
         $D = $tetraRef->D;
 
-        if ($level > 0) {
-            // order vertices until AB has the longest edge
-            $acEdge = $this->getEdge($A, $C);
-            if ($abEdge < $acEdge) {
-                return $this->createAltitude(new Tetrahedon($A, $C, $B, $D), $level, $acEdge);
-            }
-
-            $adEdge = $this->getEdge($A, $D);
-            if ($abEdge < $adEdge) {
-                return $this->createAltitude(new Tetrahedon($A, $D, $B, $C), $level, $adEdge);
-            }
-
-            $bcEdge = $this->getEdge($B, $C);
-            if ($abEdge < $bcEdge) {
-                return $this->createAltitude(new Tetrahedon($B, $C, $A, $D), $level, $bcEdge);
-            }
-
-            $bdEdge = $this->getEdge($B, $D);
-            if ($abEdge < $bdEdge) {
-                return $this->createAltitude(new Tetrahedon($B, $D, $A, $C), $level, $bdEdge);
-            }
-
-            $cdEdge = $this->getEdge($C, $D);
-            if ($abEdge < $cdEdge) {
-                return $this->createAltitude(new Tetrahedon($C, $D, $A, $B), $level, $cdEdge);
-            }
-
-            $seed = $this->seedOfSeeds($A->seed, $B->seed);
-            $seed1 = $this->seedOfSeeds($seed, $seed);
-            $seed2 = 0.5 + 0.1 * $this->seedOfSeeds($seed1, $seed1);  /* find cut point */
-            $seed3 = 1.0 - $seed2;
-
-            if ($abEdge > 1.0) {
-                $abEdge = sqrt($abEdge);
-            }
-
-            $altitudeDiff = $seed * $this->altitudeDifferenceWeight * abs($A->altitude - $B->altitude);
-            $altitude = ($A->altitude + $B->altitude) / 2 + $altitudeDiff + $seed1 *
-                $this->distanceDifferenceWeight * pow($abEdge, 0.47);
-
-            if ($A->seed < $B->seed) {
-                $E = new Vertex(
-                    $seed2 * $A->x + $seed3 * $B->x,
-                    $seed2 * $A->y + $seed3 * $B->y,
-                    $seed2 * $A->z + $seed3 * $B->z,
-                    $altitude,
-                    $seed
-                );
-            } else {
-                $E = new Vertex(
-                    $seed3 * $A->x + $seed2 * $B->x,
-                    $seed3 * $A->y + $seed2 * $B->y,
-                    $seed3 * $A->z + $seed2 * $B->z,
-                    $altitude,
-                    $seed
-                );
-            }
-
-            if ($this->findPoint($A, $E, $C, $D) > 0) {
-                return $this->createAltitude(new Tetrahedon($C, $D, $A, $E), $level - 1, $cdEdge);
-            }
-            return $this->createAltitude(new Tetrahedon($C, $D, $B, $E), $level - 1, $cdEdge);
-
+        if ($level === 0) {
+            return ($A->altitude + $B->altitude + $C->altitude + $D->altitude) / 4;
         }
 
-        return ($A->altitude + $B->altitude + $C->altitude + $D->altitude) / 4;
+        // order vertices until AB has the longest edge
+        foreach ($tetraRef->getVerticeChecks() as $check) {
+            $newEdge = $this->getEdge($check[0], $check[1]);
+            if ($abEdge < $newEdge) {
+                return $this->createAltitude(
+                    new Tetrahedon($check[0], $check[1], $check[2], $check[3]),
+                    $level,
+                    $newEdge
+                );
+            }
+        }
+
+        $E = $this->cutVertex($abEdge, $A, $B);
+
+        if ($this->findPoint($A, $E, $C, $D) > 0) {
+            return $this->createAltitude(new Tetrahedon($C, $D, $A, $E), $level - 1, $newEdge);
+        }
+        return $this->createAltitude(new Tetrahedon($C, $D, $B, $E), $level - 1, $newEdge);
+    }
+
+    /**
+     * @param float $abEdge
+     * @param Vertex $A
+     * @param Vertex $B
+     *
+     * @return Vertex
+     */
+    protected function cutVertex(float $abEdge, Vertex $A, Vertex $B): Vertex
+    {
+        $seed = $this->seedOfSeeds($A->seed, $B->seed);
+        $seed1 = $this->seedOfSeeds($seed, $seed);
+        $seed2 = 0.5 + 0.1 * $this->seedOfSeeds($seed1, $seed1);  /* find cut point */
+        $seed3 = 1.0 - $seed2;
+
+        if ($abEdge > 1.0) {
+            $abEdge = sqrt($abEdge);
+        }
+
+        $altitudeDiff = $seed * $this->altitudeDifferenceWeight * abs($A->altitude - $B->altitude);
+        $altitude = ($A->altitude + $B->altitude) / 2 + $altitudeDiff + $seed1 *
+            $this->distanceDifferenceWeight * pow($abEdge, 0.47);
+
+        if ($A->seed < $B->seed) {
+            return new Vertex(
+                $seed2 * $A->x + $seed3 * $B->x,
+                $seed2 * $A->y + $seed3 * $B->y,
+                $seed2 * $A->z + $seed3 * $B->z,
+                $altitude,
+                $seed
+            );
+        } else {
+            return new Vertex(
+                $seed3 * $A->x + $seed2 * $B->x,
+                $seed3 * $A->y + $seed2 * $B->y,
+                $seed3 * $A->z + $seed2 * $B->z,
+                $altitude,
+                $seed
+            );
+        }
     }
 
     /**
