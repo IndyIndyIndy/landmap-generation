@@ -1,6 +1,7 @@
 # landmap-generation
 Generate pixelated, random world maps in PHP.
 
+[![Code Climate](https://codeclimate.com/github/IndyIndyIndy/landmap-generation.svg)](https://codeclimate.com/github/IndyIndyIndy/landmap-generation)
 [![Latest Stable Version](https://poser.pugx.org/christianessl/landmap-generation/v/stable)](https://packagist.org/packages/christianessl/landmap-generation)
 [![Total Downloads](https://poser.pugx.org/christianessl/landmap-generation/downloads)](https://packagist.org/packages/christianessl/landmap-generation)
 [![Latest Unstable Version](https://poser.pugx.org/christianessl/landmap-generation/v/unstable)](https://packagist.org/packages/christianessl/landmap-generation)
