@@ -40,12 +40,7 @@ class DetailShader implements ShaderInterface
      */
     public function shadeColor(Color $color, int $x, int $y): Color
     {
-        $shade = $this->shades[$x][$y];
-        return new Color(
-            (int)min($shade * $color->r / 150, 255),
-            (int)min($shade * $color->g / 150, 255),
-            (int)min($shade * $color->b / 150, 255)
-        );
+        return $this->flatShader->shadeColor($color, $x, $y);
     }
 
     /**
