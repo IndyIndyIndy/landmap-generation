@@ -2,14 +2,10 @@
 
 namespace ChristianEssl\LandmapGeneration\Enum;
 
-/**
- * FileType
- */
-class FileType
+enum FileType: string
 {
-    const PNG = 'png';
-    const JPEG = 'jpeg';
-    const GIF = 'gif';
-    const WEBP = 'webp';
-
+    case PNG = 'png';
+    case JPEG = 'jpeg';
+    case GIF = 'gif';
+    case WEBP = 'webp';
 }

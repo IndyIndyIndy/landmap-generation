@@ -4,40 +4,14 @@ namespace ChristianEssl\LandmapGeneration\Struct;
 
 use ChristianEssl\LandmapGeneration\Utility\Random;
 
-/**
- * Tetrahedon
- */
 class Tetrahedon
 {
-    /**
-     * @var Vertex
-     */
-    public $A;
+    public Vertex $A;
+    public Vertex $B;
+    public Vertex $C;
+    public Vertex $D;
 
-    /**
-     * @var Vertex
-     */
-    public $B;
-
-    /**
-     * @var Vertex
-     */
-    public $C;
-
-    /**
-     * @var Vertex
-     */
-    public $D;
-
-    /**
-     * Tetrahedon constructor.
-     *
-     * @param Vertex $A
-     * @param Vertex $B
-     * @param Vertex $C
-     * @param Vertex $D
-     */
-    public function __construct($A, $B, $C, $D)
+    public function __construct(Vertex $A, Vertex $B, Vertex $C, Vertex $D)
     {
         $this->A = $A;
         $this->B = $B;
@@ -45,11 +19,6 @@ class Tetrahedon
         $this->D = $D;
     }
 
-    /**
-     * @param float $altitude
-     *
-     * @return Tetrahedon
-     */
     public static function createRandomForAltitude(float $altitude): self
     {
         $A = new Vertex(
@@ -80,14 +49,10 @@ class Tetrahedon
             $altitude,
             Random::getNextPosNegFloat()
         );
+
         return new self($A, $B, $C, $D);
     }
 
-    /**
-     * @param Tetrahedon $tetrahedon
-     *
-     * @return Tetrahedon
-     */
     public static function copy(Tetrahedon $tetrahedon): self
     {
         return new self(
@@ -100,8 +65,6 @@ class Tetrahedon
 
     /**
      * Return array of vertices to check against for ordering (to make AB the longest edge)
-     *
-     * @return array
      */
     public function getVerticeChecks():array
     {

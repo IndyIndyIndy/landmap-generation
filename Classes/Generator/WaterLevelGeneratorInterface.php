@@ -10,18 +10,7 @@ use ChristianEssl\LandmapGeneration\Settings\GeneratorSettingsInterface;
  */
 interface WaterLevelGeneratorInterface
 {
-    /**
-     * @param GeneratorSettingsInterface $settings
-     *
-     * @return array
-     */
-    public function applySettings(GeneratorSettingsInterface $settings);
+    public function applySettings(GeneratorSettingsInterface $settings): void;
 
-    /**
-     * @param Map $map
-     *
-     * @return float
-     */
-    public function createWaterLevel(Map $map);
-
+    public function createWaterLevel(Map $map): float;
 }

@@ -3,34 +3,14 @@
 namespace ChristianEssl\LandmapGeneration\Struct;
 
 /**
- * Color
- *
  * Color representing 32bit rgb values (0 - 255)
  */
 class Color
 {
-    /**
-     * @var int
-     */
-    public $r;
+    public int $r;
+    public int $g;
+    public int $b;
 
-    /**
-     * @var int
-     */
-    public $g;
-
-    /**
-     * @var int
-     */
-    public $b;
-
-    /**
-     * Vertex constructor.
-     *
-     * @param int $r
-     * @param int $g
-     * @param int $b
-     */
     public function __construct(int $r, int $g, int $b)
     {
         $this->r = $r;

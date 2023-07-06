@@ -9,13 +9,6 @@ namespace ChristianEssl\LandmapGeneration\Utility;
  */
 class ArrayInterpolator
 {
-    /**
-     * @param array $array
-     * @param int $width
-     * @param int $height
-     *
-     * @return array
-     */
     public static function interpolate(array $array, int $width, int $height): array
     {
         foreach (ArrayIterator::getArrayIterator($width, $height) as $x => $y) {
@@ -35,18 +28,10 @@ class ArrayInterpolator
                 }
             }
         }
+
         return $array;
     }
 
-    /**
-     * @param array $array
-     * @param int $width
-     * @param int $height
-     * @param int $x
-     * @param int $y
-     *
-     * @return float
-     */
     protected static function fillCoordinateFromCorners(array $array, int $width, int $height, int $x, int $y): ?float
     {
         $altitudes = 0;
@@ -79,18 +64,10 @@ class ArrayInterpolator
         if ($count > 0) {
             return $altitudes / $count;
         }
+
         return null;
     }
 
-    /**
-     * @param array $array
-     * @param int $width
-     * @param int $height
-     * @param int $x
-     * @param int $y
-     *
-     * @return float
-     */
     protected static function fillCoordinateFromAdjacent(array $array, int $width, int $height, int $x, int $y): ?float
     {
         $altitudes = 0;
@@ -123,15 +100,8 @@ class ArrayInterpolator
         return null;
     }
 
-    /**
-     * @param array $array
-     * @param int $x
-     * @param int $y
-     *
-     * @return bool
-     */
     protected static function coordinatesExist(array $array, int $x, int $y): bool
     {
-        return isset($array[$x]) && isset($array[$x][$y]);
+        return isset($array[$x][$y]);
     }
 }

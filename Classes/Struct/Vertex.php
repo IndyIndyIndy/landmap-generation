@@ -7,40 +7,12 @@ namespace ChristianEssl\LandmapGeneration\Struct;
  */
 class Vertex
 {
-    /**
-     * @var float
-     */
-    public $x;
+    public float $x;
+    public float $y;
+    public float $z;
+    public float $altitude;
+    public string $seed;
 
-    /**
-     * @var float
-     */
-    public $y;
-
-    /**
-     * @var float
-     */
-    public $z;
-
-    /**
-     * @var float
-     */
-    public $altitude;
-
-    /**
-     * @var string
-     */
-    public $seed;
-
-    /**
-     * Vertex constructor.
-     *
-     * @param float $x
-     * @param float $y
-     * @param float $z
-     * @param float|null $altitude
-     * @param string|null $seed
-     */
     public function __construct(float $x, float $y, float $z, ?float $altitude = null, ?string $seed = null)
     {
         $this->x = $x;

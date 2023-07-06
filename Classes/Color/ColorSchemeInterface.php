@@ -3,26 +3,12 @@
 namespace ChristianEssl\LandmapGeneration\Color;
 
 use ChristianEssl\LandmapGeneration\Color\Shader\ShaderInterface;
+use ChristianEssl\LandmapGeneration\Struct\Color;
 use ChristianEssl\LandmapGeneration\Struct\Map;
 
-/**
- * ColorSchemeInterface
- */
 interface ColorSchemeInterface
 {
+    public function getColor(Map $map, int $x, int $y): Color;
 
-    /**
-     * @param Map $map
-     * @param int $x
-     * @param int $y
-     *
-     * @return array
-     */
-    public function getColor(Map $map, int $x, int $y);
-
-    /**
-     * @return ShaderInterface
-     */
-    public function getShader();
-
+    public function getShader(): ShaderInterface;
 }

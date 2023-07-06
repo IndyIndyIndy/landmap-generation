@@ -4,67 +4,46 @@ namespace ChristianEssl\LandmapGeneration\Settings;
 
 use ChristianEssl\LandmapGeneration\Color\ColorSchemeInterface;
 
-/**
- * GeneratorSettingsInterface
- */
 interface GeneratorSettingsInterface
 {
-
     /**
      * Initial (default) water level when generating the map
-     *
-     * @return float
      */
-    public function getInitialWaterLevel();
+    public function getInitialWaterLevel(): float;
 
     /**
      * Initial (default) altitude diff weight for generating the altitude
-     *
-     * @return float
      */
-    public function getAltitudeDifferenceWeight();
+    public function getAltitudeDifferenceWeight(): float;
 
     /**
      * Initial (default) distance diff weight for generating the altitude
-     *
-     * @return float
      */
-    public function getDistanceDifferenceWeight();
+    public function getDistanceDifferenceWeight(): float;
 
     /**
      * The used color scheme
-     *
-     * @return ColorSchemeInterface
      */
-    public function getColorScheme();
+    public function getColorScheme(): ColorSchemeInterface;
 
     /**
      * Map width
-     *
-     * @return int
      */
-    public function getWidth();
+    public function getWidth(): int;
 
     /**
      * Map height
-     *
-     * @return int
      */
-    public function getHeight();
+    public function getHeight(): int;
 
     /**
      * Interpolation mode for performance
      * (only a quarter of altitudes is calculated altitude and the empty neighbours get interpolated)
-     *
-     * @return int
      */
-    public function isInterpolationMode();
+    public function isInterpolationMode(): bool;
 
     /**
      * The water level from 0 - 100%
-     *
-     * @return float
      */
-    public function getWaterLevel();
-
+    public function getWaterLevel(): float;
 }

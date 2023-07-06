@@ -17,42 +17,16 @@ use ChristianEssl\LandmapGeneration\Utility\ArrayInterpolator;
  */
 class DiamondSquareHeightmapGenerator implements HeightmapGeneratorInterface
 {
-    const PI = 3.14159265358979;
+    final public const PI = 3.14159265358979;
 
-    /**
-     * @var Tetrahedon
-     */
-    protected $baseTetrahedon;
+    protected Tetrahedon $baseTetrahedon;
+    protected int $subdivisions;
+    protected Vertex $P;
+    protected float $altitudeDifferenceWeight;
+    protected float $distanceDifferenceWeight;
+    protected bool $interpolateAltitudes;
 
-    /**
-     * @var int
-     */
-    protected $subdivisions;
-
-    /**
-     * @var Vertex
-     */
-    protected $P;
-
-    /**
-     * @var float
-     */
-    protected $altitudeDifferenceWeight;
-
-    /**
-     * @var float
-     */
-    protected $distanceDifferenceWeight;
-
-    /**
-     * @var bool
-     */
-    protected $interpolateAltitudes;
-
-    /**
-     * @param GeneratorSettingsInterface $settings
-     */
-    public function applySettings(GeneratorSettingsInterface $settings)
+    public function applySettings(GeneratorSettingsInterface $settings): void
     {
         $this->baseTetrahedon = Tetrahedon::createRandomForAltitude(
             $settings->getInitialWaterLevel()
@@ -63,9 +37,7 @@ class DiamondSquareHeightmapGenerator implements HeightmapGeneratorInterface
     }
 
     /**
-     * @param Map $map
-     *
-     * @return array
+     * @return array[]
      */
     public function createHeightmap(Map $map): array
     {
@@ -100,9 +72,6 @@ class DiamondSquareHeightmapGenerator implements HeightmapGeneratorInterface
         return $altitudes;
     }
 
-    /**
-     * @return float
-     */
     protected function getAltitude(): float
     {
         return $this->createAltitude(
@@ -112,13 +81,6 @@ class DiamondSquareHeightmapGenerator implements HeightmapGeneratorInterface
         );
     }
 
-    /**
-     * @param Tetrahedon $tetraRef
-     * @param int $level
-     * @param float $abEdge
-     *
-     * @return float
-     */
     protected function createAltitude(Tetrahedon $tetraRef, int $level, float $abEdge): float
     {
         $newEdge = null;
@@ -151,13 +113,6 @@ class DiamondSquareHeightmapGenerator implements HeightmapGeneratorInterface
         return $this->createAltitude(new Tetrahedon($C, $D, $B, $E), $level - 1, $newEdge);
     }
 
-    /**
-     * @param float $abEdge
-     * @param Vertex $A
-     * @param Vertex $B
-     *
-     * @return Vertex
-     */
     protected function cutVertex(float $abEdge, Vertex $A, Vertex $B): Vertex
     {
         $seed = $this->seedOfSeeds($A->seed, $B->seed);
@@ -181,23 +136,17 @@ class DiamondSquareHeightmapGenerator implements HeightmapGeneratorInterface
                 $altitude,
                 $seed
             );
-        } else {
-            return new Vertex(
-                $seed3 * $A->x + $seed2 * $B->x,
-                $seed3 * $A->y + $seed2 * $B->y,
-                $seed3 * $A->z + $seed2 * $B->z,
-                $altitude,
-                $seed
-            );
         }
+
+        return new Vertex(
+            $seed3 * $A->x + $seed2 * $B->x,
+            $seed3 * $A->y + $seed2 * $B->y,
+            $seed3 * $A->z + $seed2 * $B->z,
+            $altitude,
+            $seed
+        );
     }
 
-    /**
-     * @param Vertex $from
-     * @param Vertex $to
-     *
-     * @return float
-     */
     protected function getEdge(Vertex $from, Vertex $to): float
     {
         return ($from->x - $to->x) * ($from->x - $to->x) +
@@ -205,18 +154,9 @@ class DiamondSquareHeightmapGenerator implements HeightmapGeneratorInterface
             ($from->z - $to->z) * ($from->z - $to->z);
     }
 
-    /**
-     * @param Vertex $A
-     * @param Vertex $B
-     * @param Vertex $C
-     * @param Vertex $D
-     * @param bool $negate1
-     *
-     * @return float
-     */
-    protected function findPoint(Vertex $A, Vertex $B, Vertex $C, Vertex $D, bool $negate1 = false): float
+    protected function findPoint(Vertex $A, Vertex $B, Vertex $C, Vertex $D, bool $negate = false): float
     {
-        $mod1 = ($negate1) ? -1.0 : 1.0;
+        $mod1 = $negate ? -1.0 : 1.0;
 
         return (
                 $mod1 * ($A->x - $B->x) * ($C->y - $B->y) * ($D->z - $B->z) +
@@ -237,16 +177,10 @@ class DiamondSquareHeightmapGenerator implements HeightmapGeneratorInterface
             );
     }
 
-    /**
-     * @param float $seed1
-     * @param float $seed2
-     *
-     * @return float
-     */
     protected function seedOfSeeds(float $seed1, float $seed2): float
     {
         $r = ($seed1 + self::PI) * ($seed2 + self::PI);
-        return (float)(2 * ($r - (int)$r) - 1);
-    }
 
+        return (2 * ($r - (int)$r) - 1);
+    }
 }

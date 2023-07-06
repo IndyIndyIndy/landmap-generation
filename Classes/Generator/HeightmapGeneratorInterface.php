@@ -10,18 +10,7 @@ use ChristianEssl\LandmapGeneration\Settings\GeneratorSettingsInterface;
  */
 interface HeightmapGeneratorInterface
 {
-    /**
-     * @param GeneratorSettingsInterface $settings
-     *
-     * @return array
-     */
-    public function applySettings(GeneratorSettingsInterface $settings);
+    public function applySettings(GeneratorSettingsInterface $settings): void;
 
-    /**
-     * @param Map $map
-     *
-     * @return array
-     */
-    public function createHeightmap(Map $map);
-
+    public function createHeightmap(Map $map): array;
 }

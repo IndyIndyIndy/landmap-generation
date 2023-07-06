@@ -8,61 +8,44 @@ use ChristianEssl\LandmapGeneration\Struct\Map;
 use ChristianEssl\LandmapGeneration\Utility\ArrayIterator;
 use ChristianEssl\LandmapGeneration\Utility\Random;
 
-/**
- * DetailShader
- */
 class DetailShader implements ShaderInterface
 {
     /**
-     * @var array
+     * @var Color[]
      */
-    protected $shades = [];
+    protected array $shades = [];
+    protected FlatShader $flatShader;
 
-    /**
-     * @var FlatShader
-     */
-    protected $flatShader;
-
-    /**
-     * DetailShader constructor.
-     */
     public function __construct()
     {
         $this->flatShader = new FlatShader();
     }
 
-    /**
-     * @param Color $color
-     * @param int $x
-     * @param int $y
-     *
-     * @return Color
-     */
     public function shadeColor(Color $color, int $x, int $y): Color
     {
         return $this->flatShader->shadeColor($color, $x, $y);
     }
 
     /**
-     * @param Map $map
+     * @return Color[]
      */
-    public function createShades(Map $map): void
+    public function createShades(Map $map): array
     {
         $this->shades = $this->flatShader->createShades($map);
         list ($lowestLand, $highestLand) = $this->getLowestAndHighestLandAltitude($map);
 
         foreach (ArrayIterator::getMapIterator($map) as $x => $y) {
-            if ($map->fillTypes[$x][$y] == FillType::LAND) {
+            if ($map->fillTypes[$x][$y] == FillType::LAND->value) {
                 $altitude = $map->heightmap[$x][$y];
                 $this->shades[$x][$y] = (int)((($altitude + abs($lowestLand)) / $highestLand + Random::getNextPosNegFloat() / 10) * 127) + 63;
             }
         }
+
+        return $this->shades;
     }
 
     /**
-     * @param Map $map
-     *
-     * @return array
+     * @return float[]
      */
     protected function getLowestAndHighestLandAltitude(Map $map): array
     {
@@ -71,7 +54,7 @@ class DetailShader implements ShaderInterface
 
         foreach (ArrayIterator::getMapIterator($map) as $x => $y) {
             $altitude = $map->heightmap[$x][$y];
-            if ($altitude > 0 && $map->fillTypes[$x][$y] != FillType::WATER) {
+            if ($altitude > 0 && $map->fillTypes[$x][$y] != FillType::WATER->value) {
                 $lowestLand = min($lowestLand, $altitude);
                 $highestLand = max($highestLand, $altitude);
             }
@@ -79,5 +62,4 @@ class DetailShader implements ShaderInterface
 
         return [$lowestLand, $highestLand];
     }
-
 }

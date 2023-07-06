@@ -8,28 +8,14 @@ use ChristianEssl\LandmapGeneration\Struct\Map;
 use ChristianEssl\LandmapGeneration\Utility\ArrayIterator;
 use ChristianEssl\LandmapGeneration\Utility\Random;
 
-/**
- * FlatShader
- */
 class FlatShader implements ShaderInterface
 {
     /**
-     * @var array
+     * @var Color[]
      */
-    protected $shades = [];
+    protected array $shades = [];
+    protected int $pixelizeFactor = 10;
 
-    /**
-     * @var int
-     */
-    protected $pixelizeFactor = 10;
-
-    /**
-     * @param Color $color
-     * @param int $x
-     * @param int $y
-     *
-     * @return Color
-     */
     public function shadeColor(Color $color, int $x, int $y): Color
     {
         $shade = $this->shades[$x][$y];
@@ -41,16 +27,14 @@ class FlatShader implements ShaderInterface
     }
 
     /**
-     * @param Map $map
-     *
-     * @return array
+     * @return Color[]
      */
     public function createShades(Map $map): array
     {
         foreach (ArrayIterator::getMapIterator($map) as $x => $y) {
             $altitude = $map->heightmap[$x][$y];
 
-            if ($map->fillTypes[$x][$y] == FillType::LAND) {
+            if ($map->fillTypes[$x][$y] == FillType::LAND->value) {
                 $shadeLevel = 1;
                 $currentHeight = 1500;
 
@@ -68,5 +52,4 @@ class FlatShader implements ShaderInterface
 
         return $this->shades;
     }
-
 }

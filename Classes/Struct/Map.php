@@ -1,46 +1,29 @@
 <?php
 namespace ChristianEssl\LandmapGeneration\Struct;
 
-/**
- * Map
- */
 class Map
 {
-    /**
-     * @var int
-     */
-    public $width;
+    public int $width;
+    public int $height;
 
     /**
-     * @var int
+     * @var array[]
      */
-    public $height;
+    public array $heightmap = [];
 
     /**
-     * @var array
+     * @var array[]
      */
-    public $heightmap = [];
+    public array $fillTypes = [];
 
     /**
-     * @var array
+     * @var array[]
      */
-    public $fillTypes = [];
+    public array $colors = [];
 
-    /**
-     * @var array
-     */
-    public $colors = [];
-
-    /**
-     * Map constructor.
-     *
-     * @param int $width
-     * @param int $height
-     */
     public function __construct(int $width, int $height)
     {
         $this->width = $width;
         $this->height = $height;
     }
-
 }

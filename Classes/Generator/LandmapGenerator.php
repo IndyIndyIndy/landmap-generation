@@ -17,45 +17,23 @@ use ChristianEssl\LandmapGeneration\Settings\GeneratorSettingsInterface;
  */
 class LandmapGenerator
 {
-    /**
-     * @var HeightmapGeneratorInterface
-     */
-    protected $heightmapGenerator;
+    protected HeightmapGeneratorInterface $heightmapGenerator;
 
-    /**
-     * @var WaterLevelGeneratorInterface
-     */
-    protected $waterLevelGenerator;
+    protected WaterLevelGeneratorInterface $waterLevelGenerator;
 
-    /**
-     * @var MapColorizer
-     */
-    protected $mapColorizer;
+    protected MapColorizer $mapColorizer;
 
-    /**
-     * @var int
-     */
-    protected $width;
+    protected int $width;
 
-    /**
-     * @var int
-     */
-    protected $height;
+    protected int $height;
 
-    /**
-     * LandmapGenerator constructor.
-     *
-     * @param GeneratorSettingsInterface $settings
-     * @param string $seed
-     * @param HeightmapGeneratorInterface $heightmapGenerator
-     * @param WaterLevelGeneratorInterface $waterLevelGenerator
-     */
     public function __construct(
         GeneratorSettingsInterface $settings,
         string $seed,
         HeightmapGeneratorInterface $heightmapGenerator = null,
         WaterLevelGeneratorInterface $waterLevelGenerator = null
-    ) {
+    )
+    {
         Random::seed($seed);
 
         if ($heightmapGenerator === null) {
@@ -75,9 +53,6 @@ class LandmapGenerator
         $this->height = $settings->getHeight();
     }
 
-    /**
-     * @return Map
-     */
     public function generateMap(): Map
     {
         $map = new Map(
@@ -95,10 +70,7 @@ class LandmapGenerator
     }
 
     /**
-     * @param Map $map
-     * @param float $waterLevel
-     *
-     * @return array
+     * @return array[]
      */
     protected function getFillTypes(Map $map, float $waterLevel): array
     {
@@ -106,19 +78,13 @@ class LandmapGenerator
 
         foreach (ArrayIterator::getMapIterator($map) as $x => $y) {
             $altitude = $map->heightmap[$x][$y];
-            $fillType = ($altitude > $waterLevel) ? FillType::LAND : FillType::WATER;
+            $fillType = ($altitude > $waterLevel) ? FillType::LAND->value : FillType::WATER->value;
             $fillTypes[$x][$y] = $fillType;
         }
 
         return $fillTypes;
     }
 
-    /**
-     * @param Map $map
-     * @param float $waterLevel
-     *
-     * @return array
-     */
     protected function adjustAltitudeToWaterLevel(Map $map, float $waterLevel): array
     {
         $altitudes = [];

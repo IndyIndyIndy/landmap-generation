@@ -2,33 +2,21 @@
 
 namespace ChristianEssl\LandmapGeneration\Color;
 
+use ChristianEssl\LandmapGeneration\Struct\Color;
 use ChristianEssl\LandmapGeneration\Struct\Map;
 use ChristianEssl\LandmapGeneration\Utility\ArrayIterator;
 
-/**
- * MapColorizer
- */
 class MapColorizer
 {
-    /**
-     * @var ColorSchemeInterface
-     */
-    protected $colorScheme;
+    protected ColorSchemeInterface $colorScheme;
 
-    /**
-     * MapColorizer constructor.
-     *
-     * @param ColorSchemeInterface $colorScheme
-     */
     public function __construct(ColorSchemeInterface $colorScheme)
     {
         $this->colorScheme = $colorScheme;
     }
 
     /**
-     * @param Map $map
-     *
-     * @return array
+     * @return Color[]
      */
     public function createColors(Map $map): array
     {
@@ -41,5 +29,4 @@ class MapColorizer
 
         return $colors;
     }
-
 }

@@ -5,35 +5,29 @@ namespace ChristianEssl\LandmapGeneration\Utility;
 use ChristianEssl\LandmapGeneration\Enum\FileType;
 use ChristianEssl\LandmapGeneration\Struct\Color;
 use ChristianEssl\LandmapGeneration\Struct\Map;
+use InvalidArgumentException;
 
-/**
- * ImageUtility
- */
 class ImageUtility
 {
     /**
      * Output the image directly to the browser
      *
      * @param resource $image
-     * @param string $fileType
+     * @param FileType $fileType
      */
-    public static function outputImage($image, string $fileType): void
+    public static function outputImage($image, FileType $fileType): never
     {
-        switch ($fileType) {
-            case FileType::PNG:
+        switch ($fileType->value) {
+            case FileType::PNG->value:
                 self::outputPNG($image);
-                break;
-            case FileType::JPEG:
+            case FileType::JPEG->value:
                 self::outputJPEG($image);
-                break;
-            case FileType::GIF:
+            case FileType::GIF->value:
                 self::outputGIF($image);
-                break;
-            case FileType::WEBP:
+            case FileType::WEBP->value:
                 self::outputWEBP($image);
-                break;
             default:
-                throw new \InvalidArgumentException('File type ' . $fileType . ' is not supported.');
+                throw new InvalidArgumentException('File type ' . $fileType->value . ' is not supported.');
         }
     }
 
@@ -47,24 +41,15 @@ class ImageUtility
      */
     public static function saveImage($image, string $filePath): bool
     {
-        $fileType = strtolower(end(explode('.', $filePath)));
+        $fileType = pathinfo($filePath)['extension'] ?? null;
 
-        switch ($fileType) {
-            case FileType::PNG:
-                return imagepng($image, $filePath);
-                break;
-            case FileType::JPEG:
-                return imagejpeg($image, $filePath);
-                break;
-            case FileType::GIF:
-                return imagegif($image, $filePath);
-                break;
-            case FileType::WEBP:
-                return imagewebp($image, $filePath);
-                break;
-            default:
-                throw new \InvalidArgumentException('File type ' . $fileType . ' is not supported.');
-        }
+        return match ($fileType) {
+            FileType::PNG->value => imagepng($image, $filePath),
+            FileType::JPEG->value => imagejpeg($image, $filePath),
+            FileType::GIF->value => imagegif($image, $filePath),
+            FileType::WEBP->value => imagewebp($image, $filePath),
+            default => throw new InvalidArgumentException('File type ' . $fileType . ' is not supported.'),
+        };
     }
 
     /**
@@ -101,9 +86,9 @@ class ImageUtility
     }
 
     /**
-     * @param $image
+     * @param resource $image
      */
-    protected static function outputPNG($image): void
+    protected static function outputPNG($image): never
     {
         header('Content-Type: image/png');
         imagepng($image);
@@ -111,9 +96,9 @@ class ImageUtility
     }
 
     /**
-     * @param $image
+     * @param resource $image
      */
-    protected static function outputJPEG($image): void
+    protected static function outputJPEG($image): never
     {
         header('Content-Type: image/jpeg');
         imagejpeg($image);
@@ -121,9 +106,9 @@ class ImageUtility
     }
 
     /**
-     * @param $image
+     * @param resource $image
      */
-    protected static function outputGIF($image): void
+    protected static function outputGIF($image): never
     {
         header('Content-Type: image/gif');
         imagegif($image);
@@ -131,13 +116,12 @@ class ImageUtility
     }
 
     /**
-     * @param $image
+     * @param resource $image
      */
-    protected static function outputWEBP($image): void
+    protected static function outputWEBP($image): never
     {
         header('Content-Type: image/webp');
         imagewebp($image);
         exit;
     }
-
 }
