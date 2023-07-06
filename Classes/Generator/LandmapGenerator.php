@@ -28,9 +28,9 @@ class LandmapGenerator
     protected int $height;
 
     public function __construct(
-        GeneratorSettingsInterface $settings,
-        string $seed,
-        HeightmapGeneratorInterface $heightmapGenerator = null,
+        GeneratorSettingsInterface   $settings,
+        string                       $seed,
+        HeightmapGeneratorInterface  $heightmapGenerator = null,
         WaterLevelGeneratorInterface $waterLevelGenerator = null
     )
     {
@@ -59,7 +59,7 @@ class LandmapGenerator
             $this->width,
             $this->height
         );
-        
+
         $map->heightmap = $this->heightmapGenerator->createHeightmap($map);
         $waterLevel = $this->waterLevelGenerator->createWaterLevel($map);
         $map->fillTypes = $this->getFillTypes($map, $waterLevel);

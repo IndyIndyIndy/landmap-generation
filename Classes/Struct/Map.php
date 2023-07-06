@@ -1,4 +1,5 @@
 <?php
+
 namespace ChristianEssl\LandmapGeneration\Struct;
 
 class Map
